@@ -1,0 +1,1 @@
+# Reads through the given excel sheet and removes bad data
