@@ -1,11 +1,9 @@
-# Reads through the given excel sheet and removes bad data
+# Reads through the given csv file and removes bad data
 
 
 #########  Packages  ##########
-if(!require("readxl")) {
-  install.packages("readxl")
-  library("readxl")
-}
+# May need to run `install.packages("janitor")` prior to running the script
+library("janitor")
 
 ########## Functions ##########
 
@@ -49,8 +47,7 @@ check_if_bad <- function(row) {
 #' @description 
 #' Goes through the bad data and ignores all rows that ruin data quality
 #' Conditions that ruin data quality:
-#' - Containing NULL values
-#' - Having duplicated (newid_trips, arvl_dt) pairs
+#' - Containing illegal NULL values
 #' 
 #' @param bad_data the bad data coming from an excel file
 #' @param num_rows the total number of rows
@@ -58,20 +55,10 @@ check_if_bad <- function(row) {
 #' @return a dataframe containing clean data
 get_clean_data <- function(bad_data, num_rows) {
   df <- data.frame()
-  #id_date_pairs = list()
   
   # Go through each row
   for (i in 1:num_rows) {
     row = bad_data[i, ]
-    
-    # TODO: Implement check for duplicate newid_trips and arvl_dt pairs
-    #id_date = c(row["newid_trips"], row["arvl_dt"])
-    #if (match(id_date, id_date_pairs)) {
-    #
-    #} else {
-    #  id_date_pairs <- lappend(id_date_pairs, id_date)
-    #}
-    
     
     # Check if the row is bad
     if (!check_if_bad(row)) {
@@ -82,6 +69,29 @@ get_clean_data <- function(bad_data, num_rows) {
   return(df)
 }
 
+get_bad_dupes <- function(dupes) {
+  bad_dupes <- list()
+  len_dupes <- nrow(dupes) 
+  half_len <- floor(len_dupes / 2)
+  
+  for (i in 1:half_len) {
+    bad_dupe <- dupes[2 * i, ]
+    bad_info <- c(bad_dupe["newid_trips"], bad_dupe["arvl_dt"], bad_dupe["tot_amt"])
+    bad_dupes <- lappend(bad_dupes, bad_info)
+  }
+  
+  return(bad_dupes)
+}
+
+# TODO: Figure out how to implement this removal process quickly
+#remove_duplicates <- function(clean_data, bad_dupes) {
+#  tot_rows <- length(bad_dupes)
+#  print(bad_dupes[1])
+#  positions <- list()
+#  
+#  return(clean_data)
+#}
+
 
 ##########  Logic  ###########
 
@@ -89,17 +99,20 @@ get_clean_data <- function(bad_data, num_rows) {
 clean_data_file <- "Cleandata.csv"
 
 # Bad data file name
-bad_data_file <- "Rawdata.xlsx"
-
-# Bad data sheet name
-sheet_name <- "Dataset"
+bad_data_file <- "Rawdata.csv"
 
 # Preprocess data
-bad_data <- read_excel(bad_data_file, sheet = sheet_name) # Bad data
+bad_data <- read.csv(bad_data_file) # Bad data
 
-tot_rows <- lengths(bad_data)[1]# Total number of rows
+tot_rows <- lengths(bad_data)[1] # Total number of rows
 
 clean_data <- get_clean_data(bad_data, tot_rows) # Clean data
 
+dupes <- get_dupes(clean_data, newid_trips, arvl_dt) # Get dupes
+print(dupes)
+bad_dupes <- get_bad_dupes(dupes) # Get list of duplicates to remove
+#clean_data <- remove_duplicates(clean_data, bad_dupes)
+
 # Write clean data to file
 write.csv(clean_data, clean_data_file, row.names = FALSE)
+print('Done.')
