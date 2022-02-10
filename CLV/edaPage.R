@@ -37,5 +37,5 @@ plot2 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
   theme(plot.title=element_text(hjust=0.5, family="Arial", face='bold', size=16))
 
 plot3Font <- list(size = 16, x = 0.5, family="Arial")
-plot3 <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species)%>%
+plot3 <- plot_ly(type="scatter", mode="markers", data = iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species)%>%
   layout(title=list(text="<b>Sample Chart 3</b>", font=plot3Font))
