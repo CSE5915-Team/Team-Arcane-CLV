@@ -29,6 +29,7 @@ server <- function(input, output) {
   output$plot1Render <- renderPlot({plot1})
   output$plot2Render <- renderPlot({plot2})
   output$plot3Render <- renderPlotly(plot3)
+  output$plot4Render <- renderPlotly(plot4)
 }
 
 # Run the application 

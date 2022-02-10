@@ -18,6 +18,9 @@ EDA <- fluidPage(
   fluidRow(
     column(6,
       plotlyOutput("plot3Render")       
+      ),
+    column(6,
+      plotlyOutput("plot4Render")
       )
   )
   
@@ -39,3 +42,10 @@ plot2 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
 plot3Font <- list(size = 16, x = 0.5, family="Arial")
 plot3 <- plot_ly(type="scatter", mode="markers", data = iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species)%>%
   layout(title=list(text="<b>Sample Chart 3</b>", font=plot3Font))
+
+ggplot4 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) +
+  ggtitle("Sample chart 4") +
+  geom_point(size=3) +
+  theme_ipsum() +
+  theme(plot.title=element_text(hjust=0.5, family="Arial", face='bold', size=16))
+plot4 <- ggplotly(ggplot4)
