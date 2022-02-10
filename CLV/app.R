@@ -8,41 +8,27 @@
 #
 
 library(shiny)
-
+library(ggplot2)
+library(plotly)
+library(hrbrthemes)
+library(showtext)
+font_add("Arial Narrow", regular="ARIALN.TTF")
+font_add("Arial", regular="arial.ttf")
+showtext_auto()
+source('edaPage.R', local = TRUE)
 # Define UI for application that draws a histogram
-ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
-    )
-)
+ui <- navbarPage("Customer Lifetime Value",
+       tabPanel("EDA",
+        EDA
+       )
+     )
+  
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+  output$plot1Render <- renderPlot({plot1})
+  output$plot2Render <- renderPlot({plot2})
+  output$plot3Render <- renderPlotly(plot3)
 }
 
 # Run the application 
