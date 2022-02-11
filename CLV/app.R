@@ -12,25 +12,25 @@ library(ggplot2)
 library(plotly)
 library(hrbrthemes)
 library(showtext)
-font_add("Arial Narrow", regular="ARIALN.TTF")
-font_add("Arial", regular="arial.ttf")
+font_add("Arial Narrow", regular = "ARIALN.TTF")
+font_add("Arial", regular = "arial.ttf")
 showtext_auto()
-source('edaPage.R', local = TRUE)
+source("edaPage.R", local = TRUE)
 # Define UI for application that draws a histogram
 ui <- navbarPage("Customer Lifetime Value",
        tabPanel("EDA",
-        EDA
+        eda_page
        )
      )
   
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-  output$plot1Render <- renderPlot({plot1})
-  output$plot2Render <- renderPlot({plot2})
-  output$plot3Render <- renderPlotly(plot3)
-  output$plot4Render <- renderPlotly(plot4)
+  output$plot_render_1 <- renderPlot(plot1)
+  output$plot_render_2 <- renderPlot(plot2)
+  output$plot_render_3 <- renderPlotly(plot3)
+  output$plot_render_4 <- renderPlotly(plot4)
 }
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)
