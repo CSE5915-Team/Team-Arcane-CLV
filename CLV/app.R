@@ -26,7 +26,7 @@ ui <- navbarPage("Customer Lifetime Value",
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-  output$plot_render_1 <- renderPlot(plot1)
+  output$plot_render_1 <- renderPlotly(plot1)
   output$plot_render_2 <- renderPlot(plot2)
   output$plot_render_3 <- renderPlotly(plot3)
   output$plot_render_4 <- renderPlotly(plot4)
