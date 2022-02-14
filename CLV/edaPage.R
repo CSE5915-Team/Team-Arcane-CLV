@@ -21,10 +21,10 @@ eda_page <- fluidPage(
     column(6,
       sliderInput("income",
                   "Total Income",
-                  width = '100%',
-                  min = min(data['income_1_avg']),
-                  max = max(data['income_1_avg']),
-                  value = c(min(data['income_1_avg']),max(data['income_1_avg'])))
+                  width = "100%",
+                  min = min(data["income_1_avg"]),
+                  max = max(data["income_1_avg"]),
+                  value = c(min(data["income_1_avg"]), max(data["income_1_avg"])))
       )
   )
 )
@@ -32,7 +32,7 @@ eda_page <- fluidPage(
 ggplot1 <- ggplot(data, aes(x = nght_cnt, y = tot_amt, color = hshold_lifestage_last)) +
   ggtitle("Night count vs. Total Amount") +
   geom_point(size = 3) +
-  geom_smooth(method=lm , color="red", se=FALSE) +
+  geom_smooth(method = lm, color = "red", se = FALSE) +
   theme_ipsum() +
   xlab("Night Count") +
   ylab("Total Amount ($)") +
