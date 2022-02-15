@@ -46,8 +46,10 @@ ggplot2 <- ggplot(data, aes(x = nght_cnt, y = (income_1_avg + income_2_avg), col
   geom_smooth(method = lm, color = "red", se = FALSE) +
   theme_ipsum() +
   xlab("Night Count") +
-  ylim(0, 600000) +
-  ylab("Sum of Income Averages ($)") +
+  scale_y_continuous("Sum of Income Averages ($)",
+                     breaks = scales::breaks_extended(8),
+                     labels = scales::label_dollar()  
+  ) +
   labs(color = "Household Lifestage") +
   theme(plot.title = element_text(hjust = 0.5, family = "Arial", face = "bold", size = 16))
 plot2 <- ggplotly(ggplot2)
