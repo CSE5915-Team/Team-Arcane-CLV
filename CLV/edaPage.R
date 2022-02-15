@@ -31,18 +31,33 @@ eda_page <- fluidPage(
 
 ggplot1 <- ggplot(data, aes(x = nght_cnt, y = tot_amt, color = hshold_lifestage_last)) +
   ggtitle("Night count vs. Total Amount") +
-  geom_point(size = 3) +
+  geom_point(size = 3,
+             aes(
+               text = paste0("<b>", hshold_lifestage_last, "</b><br>",
+                             "Night Count: ", nght_cnt, "<br>",
+                             "Total Amount: ", scales::dollar(tot_amt), "<br>")
+              )
+             ) +
   geom_smooth(method = lm, color = "red", se = FALSE) +
   theme_ipsum() +
   xlab("Night Count") +
-  ylab("Total Amount ($)") +
+  scale_y_continuous("Total Amount ($)",
+                     breaks = scales::breaks_extended(8),
+                     labels = scales::label_dollar()  
+  ) +
   labs(color = "Household Lifestage") +
   theme(plot.title = element_text(hjust = 0.5, family = "Arial", face = "bold", size = 16))
-plot1 <- ggplotly(ggplot1)
+plot1 <- ggplotly(ggplot1, tooltip = c("text"))
 
 ggplot2 <- ggplot(data, aes(x = nght_cnt, y = (income_1_avg + income_2_avg), color = hshold_lifestage_last)) +
   ggtitle("Night Count vs. Sum of Income Averages") +
-  geom_point(size = 3) +
+  geom_point(size = 3,
+             aes(
+               text = paste0("<b>", hshold_lifestage_last, "</b><br>",
+                             "Night Count: ", nght_cnt, "<br>",
+                             "Income Sum: ", scales::dollar(income_1_avg + income_2_avg), "<br>")
+              )
+             ) +
   geom_smooth(method = lm, color = "red", se = FALSE) +
   theme_ipsum() +
   xlab("Night Count") +
@@ -52,7 +67,7 @@ ggplot2 <- ggplot(data, aes(x = nght_cnt, y = (income_1_avg + income_2_avg), col
   ) +
   labs(color = "Household Lifestage") +
   theme(plot.title = element_text(hjust = 0.5, family = "Arial", face = "bold", size = 16))
-plot2 <- ggplotly(ggplot2)
+plot2 <- ggplotly(ggplot2, tooltip = c("text"))
 
 plot3_font <- list(size = 16, x = 0.5, family = "Arial")
 plot3 <- plot_ly(type = "scatter", mode = "markers", data = iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species) %>%
