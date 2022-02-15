@@ -11,7 +11,7 @@ eda_page <- fluidPage(
       plotlyOutput("plot_render_1")
       ),
     column(6,
-      plotOutput("plot_render_2")
+      plotlyOutput("plot_render_2")
       )
   ),
   fluidRow(
@@ -40,12 +40,19 @@ ggplot1 <- ggplot(data, aes(x = nght_cnt, y = tot_amt, color = hshold_lifestage_
   theme(plot.title = element_text(hjust = 0.5, family = "Arial", face = "bold", size = 16))
 plot1 <- ggplotly(ggplot1)
 
-plot2 <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
-  ggtitle("Sample chart 2") +
-  geom_point(size = 6) +
+ggplot2 <- ggplot(data, aes(x = nght_cnt, y = (income_1_avg + income_2_avg), color = hshold_lifestage_last)) +
+  ggtitle("Night Count vs. Sum of Income Averages") +
+  geom_point(size = 3) +
+  geom_smooth(method = lm, color = "red", se = FALSE) +
   theme_ipsum() +
+  xlab("Night Count") +
+  ylim(0, 600000) +
+  ylab("Sum of Income Averages ($)") +
+  labs(color = "Household Lifestage") +
   theme(plot.title = element_text(hjust = 0.5, family = "Arial", face = "bold", size = 16))
+plot2 <- ggplotly(ggplot2)
 
 plot3_font <- list(size = 16, x = 0.5, family = "Arial")
 plot3 <- plot_ly(type = "scatter", mode = "markers", data = iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species) %>%
   layout(title = list(text = "<b>Sample Chart 3</b>", font = plot3_font))
+
