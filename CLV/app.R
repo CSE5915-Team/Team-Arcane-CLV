@@ -24,9 +24,9 @@ generate_clean_data()
 
 source("edaPage.R", local = TRUE)
 source("aboutPage.R", local = TRUE)
-source("eda_plot1_module.R", local = TRUE)
-source("eda_plot2_module.R", local = TRUE)
-source("eda_plot3_module.R", local = TRUE)
+source("eda_plot1_func.R", local = TRUE)
+source("eda_plot2_func.R", local = TRUE)
+source("eda_plot3_func.R", local = TRUE)
 
 data <- read.csv("Cleandata.csv")
 
