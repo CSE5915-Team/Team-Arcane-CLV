@@ -49,4 +49,4 @@ po/*~
 rsconnect/
 
 # generated csv
-Cleandata
+*Cleandata.csv
