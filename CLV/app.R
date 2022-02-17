@@ -68,8 +68,8 @@ server <- function(input, output) {
                                     face = "bold", size = 16)), tooltip = c("text"))
     text_2 <- paste0("Smoothed <br>", "Night Count: ", w$x$data[[2]]$x, "<br>",
                      "Total Amount: ", w$x$data[[2]]$y, "<br>")
-    w %>% 
-      style(text = text_2, traces = 2) 
+    w %>%
+      style(text = text_2, traces = 2)
   })
   output$plot_render_2 <- renderPlotly({
     w <- ggplotly(data %>%
@@ -102,8 +102,8 @@ server <- function(input, output) {
                        family = "Arial", face = "bold", size = 16)), tooltip = c("text"))
     text_2 <- paste0("Smoothed <br>", "Night Count: ", w$x$data[[2]]$x, "<br>",
                      "Income Sum: ", w$x$data[[2]]$y, "<br>")
-    w %>% 
-      style(text = text_2, traces = 2) 
+    w %>%
+      style(text = text_2, traces = 2)
   })
   output$plot_render_3 <- renderPlotly({
     ggplotly(data %>%
