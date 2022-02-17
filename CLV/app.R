@@ -13,6 +13,7 @@ library(plotly)
 library(hrbrthemes)
 library(showtext)
 library(tidyverse)
+library(lintr)
 font_add("Arial Narrow", regular = "ARIALN.TTF")
 font_add("Arial", regular = "arial.ttf")
 showtext_auto()
@@ -22,12 +23,16 @@ source("preprocess.R", local = TRUE)
 generate_clean_data()
 
 source("edaPage.R", local = TRUE)
+source("aboutPage.R", local = TRUE)
 # Define UI for application that draws a histogram
 ui <- navbarPage("Customer Lifetime Value",
-       tabPanel("EDA",
-        eda_page
-       )
-     )
+  tabPanel("About",
+    about_page
+  ),
+  tabPanel("EDA",
+    eda_page
+  )
+)
   
 
 # Define server logic required to draw a histogram
