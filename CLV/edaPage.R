@@ -1,6 +1,5 @@
-data <- read.csv("Cleandata.csv")
-
-eda_page <- fluidPage(
+eda_page <- function() {
+  fluidPage(
   # Application title
   titlePanel("Exploratory Data Analysis"),
   # Fluid rows layout
@@ -51,3 +50,4 @@ eda_page <- fluidPage(
     )
   )
 )
+}
