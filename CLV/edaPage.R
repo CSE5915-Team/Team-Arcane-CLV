@@ -1,4 +1,3 @@
-source("EDAChartData/chart1.R", local = TRUE)
 data <- read.csv("Cleandata.csv")
 
 eda_page <- fluidPage(
@@ -6,7 +5,7 @@ eda_page <- fluidPage(
   titlePanel("Exploratory Data Analysis"),
   # Fluid rows layout
   fluidRow(
-    column(1,
+    column(6,
       # life stage filter
       selectInput("household_lifestage",
       label = "Household Lifestage",

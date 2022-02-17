@@ -16,8 +16,12 @@ library(tidyverse)
 font_add("Arial Narrow", regular = "ARIALN.TTF")
 font_add("Arial", regular = "arial.ttf")
 showtext_auto()
-source("edaPage.R", local = TRUE)
 
+source("preprocess.R", local = TRUE)
+# generate clean data
+generate_clean_data()
+
+source("edaPage.R", local = TRUE)
 # Define UI for application that draws a histogram
 ui <- navbarPage("Customer Lifetime Value",
        tabPanel("EDA",
@@ -28,6 +32,7 @@ ui <- navbarPage("Customer Lifetime Value",
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  # generate clean data
   data <- read.csv("Cleandata.csv")
   output$plot_render_1 <- renderPlotly({
     ggplotly(data %>%
