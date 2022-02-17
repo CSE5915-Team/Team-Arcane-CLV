@@ -41,7 +41,7 @@ server <- function(input, output) {
   # generate clean data
   data <- read.csv("Cleandata.csv")
   output$plot_render_1 <- renderPlotly({
-    ggplotly(data %>%
+    w <- ggplotly(data %>%
     filter(hshold_lifestage_last %in% input$household_lifestage) %>%
     filter((income_1_avg + income_2_avg) > input$income[1]) %>%
     filter((income_1_avg + income_2_avg) < input$income[2]) %>%
@@ -51,7 +51,12 @@ server <- function(input, output) {
     filter(nght_cnt < input$night_count[2]) %>%
     ggplot(aes(x = nght_cnt, y = tot_amt, color = hshold_lifestage_last)) +
     ggtitle("Amount Spent vs. Night Count") +
-    geom_point(size = 1) +
+    geom_point(size = 1,
+               aes(text = paste0("<b>", hshold_lifestage_last, "</b><br>",
+                                 "Night Count: ", nght_cnt, "<br>",
+                                 "Total Amount: ", scales::dollar(tot_amt), "<br>")
+               )
+             ) +
     geom_smooth(method = lm, color = "red", se = FALSE) +
     theme_ipsum() +
     xlab("Night Count") +
@@ -60,10 +65,14 @@ server <- function(input, output) {
                        labels = scales::label_dollar())  +
     labs(color = "Household Lifestage") +
     theme(plot.title = element_text(hjust = 0.5, family = "Arial",
-                                    face = "bold", size = 16)))
+                                    face = "bold", size = 16)), tooltip = c("text"))
+    text_2 <- paste0("Smoothed <br>", "Night Count: ", w$x$data[[2]]$x, "<br>",
+                     "Total Amount: ", w$x$data[[2]]$y, "<br>")
+    w %>% 
+      style(text = text_2, traces = 2) 
   })
   output$plot_render_2 <- renderPlotly({
-    ggplotly(data %>%
+    w <- ggplotly(data %>%
     filter(hshold_lifestage_last %in% input$household_lifestage) %>%
     filter((income_1_avg + income_2_avg) > input$income[1]) %>%
     filter((income_1_avg + income_2_avg) < input$income[2]) %>%
@@ -74,7 +83,13 @@ server <- function(input, output) {
     ggplot(aes(x = nght_cnt, y = (income_1_avg + income_2_avg),
                color = hshold_lifestage_last)) +
     ggtitle("Total Income vs. Night Count") +
-    geom_point(size = 1) +
+    geom_point(size = 1,
+               aes(
+                 text = paste0("<b>", hshold_lifestage_last, "</b><br>",
+                               "Night Count: ", nght_cnt, "<br>",
+                               "Income Sum: ", scales::dollar(income_1_avg + income_2_avg), "<br>")
+               )
+             ) +
     geom_smooth(method = lm, color = "red", se = FALSE) +
     theme_ipsum() +
     xlab("Night Count") +
@@ -84,7 +99,11 @@ server <- function(input, output) {
     ) +
     labs(color = "Household Lifestage") +
     theme(plot.title = element_text(hjust = 0.5,
-                       family = "Arial", face = "bold", size = 16)))
+                       family = "Arial", face = "bold", size = 16)), tooltip = c("text"))
+    text_2 <- paste0("Smoothed <br>", "Night Count: ", w$x$data[[2]]$x, "<br>",
+                     "Income Sum: ", w$x$data[[2]]$y, "<br>")
+    w %>% 
+      style(text = text_2, traces = 2) 
   })
   output$plot_render_3 <- renderPlotly({
     ggplotly(data %>%
