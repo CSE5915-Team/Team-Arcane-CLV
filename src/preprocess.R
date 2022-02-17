@@ -1,5 +1,4 @@
 # Reads through the given csv file and removes bad data
-l
 
 #########  Packages  ##########
 library("janitor")
