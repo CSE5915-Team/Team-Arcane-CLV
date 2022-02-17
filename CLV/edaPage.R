@@ -10,6 +10,7 @@ eda_page <- fluidPage(
       selectInput("household_lifestage",
       label = "Household Lifestage",
       choices = unique(data$hshold_lifestage_last),
+      multiple = TRUE,
       selected = "CORE")
     )
   ),
