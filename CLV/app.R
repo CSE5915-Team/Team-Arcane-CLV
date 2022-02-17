@@ -32,11 +32,12 @@ ui <- navbarPage("Customer Lifetime Value",
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  print("Plot Render Beginning.")
   # generate clean data
   data <- read.csv("Cleandata.csv")
   output$plot_render_1 <- renderPlotly({
     ggplotly(data %>%
-    filter(hshold_lifestage_last == input$household_lifestage) %>%
+    filter(hshold_lifestage_last %in% input$household_lifestage) %>%
     filter((income_1_avg + income_2_avg) > input$income[1]) %>%
     filter((income_1_avg + income_2_avg) < input$income[2]) %>%
     filter((networth_1_avg + networth_2_avg) > input$networth[1]) %>%
@@ -58,7 +59,7 @@ server <- function(input, output) {
   })
   output$plot_render_2 <- renderPlotly({
     ggplotly(data %>%
-    filter(hshold_lifestage_last == input$household_lifestage) %>%
+    filter(hshold_lifestage_last %in% input$household_lifestage) %>%
     filter((income_1_avg + income_2_avg) > input$income[1]) %>%
     filter((income_1_avg + income_2_avg) < input$income[2]) %>%
     filter((networth_1_avg + networth_2_avg) > input$networth[1]) %>%
@@ -82,7 +83,7 @@ server <- function(input, output) {
   })
   output$plot_render_3 <- renderPlotly({
     ggplotly(data %>%
-    filter(hshold_lifestage_last == input$household_lifestage) %>%
+    filter(hshold_lifestage_last %in% input$household_lifestage) %>%
     filter((income_1_avg + income_2_avg) > input$income[1]) %>%
     filter((income_1_avg + income_2_avg) < input$income[2]) %>%
     filter((networth_1_avg + networth_2_avg) > input$networth[1]) %>%
@@ -96,6 +97,7 @@ server <- function(input, output) {
     ylab("Count") +
     geom_histogram(binwidth = 100))
   })
+  print("Plot Render Done.")
 }
 
 # Run the application

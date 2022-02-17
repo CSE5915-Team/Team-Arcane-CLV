@@ -6,6 +6,7 @@ library("openxlsx")
 library("dplyr")
 ##########  Logic  ###########
 generate_clean_data <- function(){
+  print("Data Preprocess Beginning.")
   # file names
   bad_data_file <- "Rawdata.csv"
   clean_data_file <- "Cleandata.csv"
@@ -64,7 +65,7 @@ generate_clean_data <- function(){
   # Write clean data to file
   write.csv(clean_data, clean_data_file, row.names = FALSE)
   
-  print("Done.")
+  print("Data Preprocess Done.")
 }
 
 
