@@ -20,8 +20,13 @@ generate_after_churn_new_data <- function(data, churn){
   
   data <- data %>% top_frac(1 - churn) # creates a new dataframe by returning the top 80% of the ecdf graph
   
-  data[order(data$customer_id, decreasing = FALSE), ] # orders new dataframe by customer_id for neatness
+  ecdf_percentiles <- ecdf(data$diff_btwn_dates_in_days)
+  
+  data <- data%>%mutate(churn_probabilites = 1.2 - ecdf_percentiles(data$diff_btwn_dates_in_days))
+  
+  data[order(data$customer_id, decreasing = FALSE), ] # orders new dataframe by customer_id for neatness 
   
   write.csv(data, "Cleandata_after_churn.csv", row.names = FALSE) # writes new dataframe to file
   
 }
+

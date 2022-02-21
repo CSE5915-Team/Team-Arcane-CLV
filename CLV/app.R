@@ -114,8 +114,12 @@ server <- function(input, output) {
           xlab("Days")
   
   
+  
+  
   output$ecdf_plot_render <- renderPlot ({ecdf + stat_ecdf()})
   generate_after_churn_new_data(data, 0.2)
+  
+  
   
   churned_data <- read.csv("Cleandata_after_churn.csv")
   
