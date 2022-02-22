@@ -1,6 +1,5 @@
-data <- read.csv("Cleandata.csv")
-
-eda_page <- fluidPage(
+eda_page <- function() {
+  fluidPage(
   # Application title
   titlePanel("Exploratory Data Analysis"),
   # Fluid rows layout
@@ -10,6 +9,7 @@ eda_page <- fluidPage(
       selectInput("household_lifestage",
       label = "Household Lifestage",
       choices = unique(data$hshold_lifestage_last),
+      multiple = TRUE,
       selected = "CORE")
     )
   ),
@@ -50,3 +50,4 @@ eda_page <- fluidPage(
     )
   )
 )
+}

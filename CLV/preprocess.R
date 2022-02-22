@@ -6,6 +6,7 @@ library("openxlsx")
 library("dplyr")
 ##########  Logic  ###########
 generate_clean_data <- function(){
+  print("Data Preprocess Beginning.")
   # file names
   bad_data_file <- "Rawdata.csv"
   clean_data_file <- "Cleandata.csv"
@@ -21,7 +22,11 @@ generate_clean_data <- function(){
   # remove nulls
   bad_data <- subset(bad_data, bad_data$hshold_lifestage_last != "NULL"
                      & bad_data$trip_seq_nb != "NULL"
-                     & bad_data$bkng_dt != "NULL")
+                     & bad_data$bkng_dt != "NULL"
+                     & bad_data$income_1_avg != 0
+                     & bad_data$income_2_avg != 0
+                     & bad_data$networth_1_avg != 0
+                     & bad_data$networth_2_avg != 0)
   
   # fix date fields
   bad_data <- mutate(bad_data, bkng_dt =
@@ -64,7 +69,7 @@ generate_clean_data <- function(){
   # Write clean data to file
   write.csv(clean_data, clean_data_file, row.names = FALSE)
   
-  print("Done.")
+  print("Data Preprocess Done.")
 }
 
 
