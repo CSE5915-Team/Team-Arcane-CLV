@@ -38,6 +38,7 @@ ui <- navbarPage("Customer Lifetime Value",
 # Define server logic required to draw a histogram
 source("cleandata_after_churn.R", local=TRUE)
 source("churn_eda_plot1_server.R", local = TRUE)
+source("churn_eda_plot2_server.R", local = TRUE)
 source("ecdf_plot_server.R", local = TRUE)
 
 
@@ -118,46 +119,8 @@ server <- function(input, output) {
   #Plots for all the graphs based on the churned data
   output$churn_plot_render_1 <- churn_plot1_server(input, output, session, churned_data)
   
-  output$churn_plot_render_2 <- renderPlotly({
-    ggplotly(churned_data %>%
-               filter(hshold_lifestage_last == input$churn_household_lifestage) %>%
-               filter((income_1_avg + income_2_avg) > input$churn_income[1]) %>%
-               filter((income_1_avg + income_2_avg) < input$churn_income[2]) %>%
-               filter((networth_1_avg + networth_2_avg) > input$churn_networth[1]) %>%
-               filter((networth_1_avg + networth_2_avg) < input$churn_networth[2]) %>%
-               filter(nght_cnt > input$churn_night_count[1]) %>%
-               filter(nght_cnt < input$churn_night_count[2]) %>%
-               ggplot(aes(x = nght_cnt, y = (income_1_avg + income_2_avg),
-                          color = hshold_lifestage_last)) +
-               ggtitle("Total Income vs. Night Count") +
-               geom_point(size = 1) +
-               geom_smooth(method = lm, color = "red", se = FALSE) +
-               theme_ipsum() +
-               xlab("Night Count") +
-               scale_y_continuous("Total Income ($)",
-                                  breaks = scales::breaks_extended(8),
-                                  labels = scales::label_dollar()
-               ) +
-               labs(color = "Household Lifestage") +
-               theme(plot.title = element_text(hjust = 0.5,
-                                               family = "Arial", face = "bold", size = 16)))
-  })
-  output$churn_plot_render_3 <- renderPlotly({
-    ggplotly(churned_data %>%
-               filter(hshold_lifestage_last == input$churn_household_lifestage) %>%
-               filter((income_1_avg + income_2_avg) > input$churn_income[1]) %>%
-               filter((income_1_avg + income_2_avg) < input$churn_income[2]) %>%
-               filter((networth_1_avg + networth_2_avg) > input$churn_networth[1]) %>%
-               filter((networth_1_avg + networth_2_avg) < input$churn_networth[2]) %>%
-               filter(nght_cnt > input$churn_night_count[1]) %>%
-               filter(nght_cnt < input$churn_night_count[2]) %>%
-               filter(tot_amt <= 1000) %>%
-               ggplot(aes(x = tot_amt)) +
-               ggtitle("Amount Spent Histogram") +
-               xlab("Amount Spent (bin = 100)") +
-               ylab("Count") +
-               geom_histogram(binwidth = 100))
-  })
+  output$churn_plot_render_2 <- churn_plot2_server(input, output, session, churned_data)
+  
 }
 
 # Run the application

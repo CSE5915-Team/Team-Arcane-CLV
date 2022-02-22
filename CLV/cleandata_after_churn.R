@@ -22,7 +22,7 @@ generate_after_churn_new_data <- function(data, churn){
   
   ecdf_percentiles <- ecdf(data$diff_btwn_dates_in_days)
   
-  data <- data%>%mutate(churn_probabilites = 1.2 - ecdf_percentiles(data$diff_btwn_dates_in_days))
+  data <- data%>%mutate(churn_probabilites = 1 - ecdf_percentiles(data$diff_btwn_dates_in_days))
   
   data[order(data$customer_id, decreasing = FALSE), ] # orders new dataframe by customer_id for neatness 
   
