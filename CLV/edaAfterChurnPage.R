@@ -1,6 +1,7 @@
 data <- read.csv("Cleandata.csv")
 
-eda_after_churn_page <- fluidPage(
+eda_after_churn_page <- function() {
+  fluidPage(
   # Application title
   titlePanel("Exploratory Data Analysis After Churn"),
   # Fluid rows layout
@@ -23,12 +24,12 @@ eda_after_churn_page <- fluidPage(
     ),
     column(6,
            plotlyOutput("churn_plot_render_2")
+    ), 
+    column(6,
+           plotlyOutput("churn_plot_render_3")
     )
   ),
   fluidRow(
-    column(6,
-           plotlyOutput("churn_plot_render_3")
-    ),
     column(6,
            # income filter
            sliderInput("churn_income", "Total Income", width = "100%",
@@ -53,3 +54,4 @@ eda_after_churn_page <- fluidPage(
     )
   )
 )
+}
