@@ -1,4 +1,4 @@
-plot3_server <- function(input, output, session, data) {
+plot3_server <- function(input, output, session) {
   plot_render_3 <- renderPlotly({
     ggplotly(data %>%
      filter(hshold_lifestage_last %in% input$household_lifestage) %>%

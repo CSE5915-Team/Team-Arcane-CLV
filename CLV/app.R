@@ -13,6 +13,7 @@ library(plotly)
 library(hrbrthemes)
 library(showtext)
 library(tidyverse)
+library(lintr)
 font_add("Arial Narrow", regular = "ARIALN.TTF")
 font_add("Arial", regular = "arial.ttf")
 showtext_auto()
@@ -46,16 +47,16 @@ source("ecdf_plot_server.R", local = TRUE)
 
 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   # generate clean data
   
   data <- read.csv("Cleandata.csv")
   
-  output$plot_render_1 <- plot1_server(input, output, session, data)
+  output$plot_render_1 <- plot1_server(input, output, session)
   
-  output$plot_render_2 <- plot2_server(input, output, session, data)
+  output$plot_render_2 <- plot2_server(input, output, session)
   
-  output$plot_render_3 <- plot3_server(input, output, session, data)
+  output$plot_render_3 <- plot3_server(input, output, session)
   
   
   data <- modify_data_for_ecdf(data)
@@ -73,4 +74,4 @@ server <- function(input, output) {
 }
 
 # Run the application
-shinyApp(ui, server())
+shinyApp(ui, server)
