@@ -24,13 +24,13 @@ generate_clean_data()
 
 source("edaPage.R", local = TRUE)
 source("aboutPage.R", local = TRUE)
-source("edaAfterChurnPage.R", local =TRUE)
+source("edaAfterChurnPage.R", local = TRUE)
 
-source("eda_plot1_func.R", local =TRUE)
-source("eda_plot2_func.R", local =TRUE)
-source("eda_plot3_func.R", local =TRUE)
+source("eda_plot1_func.R", local = TRUE)
+source("eda_plot2_func.R", local = TRUE)
+source("eda_plot3_func.R", local = TRUE)
 
-source("funcs_for_churning_data.R", local=TRUE)
+source("funcs_for_churning_data.R", local = TRUE)
 source("churn_eda_plot1_func.R", local = TRUE)
 source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
@@ -55,30 +55,20 @@ ui <- navbarPage("Customer Lifetime Value",
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
   # generate clean data
-  
   print("Plot Rendering Beginning.")
-  
   output$plot_render_1 <- plot1_server(input, output, session)
-  
   output$plot_render_2 <- plot2_server(input, output, session)
-  
   output$plot_render_3 <- plot3_server(input, output, session)
   
-  
   data <- modify_data_for_ecdf(data)
-  
   output$ecdf_plot_render <- ecdf_plot_server(data)
   generate_after_churn_new_data(data, 0.2)
-  
   churned_data <- read.csv("Cleandata_after_churn.csv")
-   
+  
   #Plots for all the graphs based on the churned data
   output$churn_plot_render_1 <- churn_plot1_server(input, output, session, churned_data)
-  
   output$churn_plot_render_2 <- churn_plot2_server(input, output, session, churned_data)
-  
   output$churn_plot_render_3 <- churn_plot3_server(input, output, session, churned_data)
-  
   print("Plot Rendering Done.")
 }
 
