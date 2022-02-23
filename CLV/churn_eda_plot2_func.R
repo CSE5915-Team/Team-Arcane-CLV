@@ -14,6 +14,7 @@ churn_plot2_server <- function(input, output, session, data) {
                geom_smooth(method = lm, color = "red", se = FALSE) +
                theme_ipsum() +
                xlab("Total Amount") +
+               ylab("Churn Probability") +
                labs(color = "Household Lifestage") +
                scale_y_continuous(breaks = seq(0, 1, by = 0.25)) +
                theme(plot.title = element_text(hjust = 0.5, family = "Arial", face = "bold", size = 16)))

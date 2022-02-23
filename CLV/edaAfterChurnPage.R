@@ -11,6 +11,7 @@ eda_after_churn_page <- function() {
            selectInput("churn_household_lifestage",
                        label = "Household Lifestage",
                        choices = unique(data$hshold_lifestage_last),
+                       multiple = TRUE,
                        selected = "CORE")
     )
   ),
