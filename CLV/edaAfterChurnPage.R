@@ -25,7 +25,7 @@ eda_after_churn_page <- function() {
     ),
     column(6,
            plotlyOutput("churn_plot_render_2")
-    ), 
+    ),
     column(6,
            plotlyOutput("churn_plot_render_3")
     )
