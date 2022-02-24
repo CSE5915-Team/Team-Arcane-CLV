@@ -24,6 +24,14 @@ shiny::runApp()
 
 OR start RStudio and click "Run App" in ./CLV/app.R
 
+## Exploratory Data Analysis Page
+
+This page consists of graphs using data that has only been pre-processed. We have included graphs of interesting relationships among attributes. User can choose to analyze specific demographics in the text bar on the top as well as adjust the sliders on the bottom to view particular data and its affect on the corresponding relationships between attributes.
+
+## Exploratory Data Analysis After Churn Page
+
+This page consists of an ECDF churn plot, multiple line graphs comparing probabilities of churn against various attributes of data. The ECDF plot uses pre-processed data while the line graphs uses data that has been pre-processed and removed of its guaranteed churned customers. The user can interact with the line graphs by adjusting the sliders on the bottom to view particular data and its affect on the corresponding relationships between attributes.
+
 ## Contributors
 
 - [Ben Barasch](https://github.com/orgs/CSE5915-Team/people/bbarasch)

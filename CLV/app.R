@@ -40,16 +40,10 @@ data <- read.csv("Cleandata.csv")
 
 # Define UI for application that draws a histogram
 ui <- navbarPage("Customer Lifetime Value",
-       tabPanel("About",
-        about_page()
-       ),
-       tabPanel("EDA",
-        eda_page()
-       ),
-       tabPanel("EDA After Churn",
-        eda_after_churn_page()
-       )
-     )
+  tabPanel("About", about_page()),
+  tabPanel("EDA", eda_page()),
+  tabPanel("EDA After Churn", eda_after_churn_page())
+)
   
 
 # Define server logic required to draw a histogram

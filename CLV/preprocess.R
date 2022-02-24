@@ -39,6 +39,9 @@ generate_clean_data <- function(){
   
   bad_data <- mutate(bad_data, arvl_dt = convertToDate(c(arvl_dt)))
   
+  # remove bad dates
+  bad_data <- subset(bad_data, bad_data$arvl_dt < Sys.Date())
+  
   # make newid_trips easier to read
   newid_trips <- unique(bad_data$newid_trips)
   customer_id <- seq_len(length(newid_trips))
