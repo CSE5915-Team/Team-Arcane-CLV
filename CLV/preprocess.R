@@ -67,8 +67,12 @@ generate_clean_data <- function(){
   bad_data$customer_lifetime <-
     difftime(bad_data$max_arvl_dt, bad_data$min_arvl_dt)
   head(bad_data)
-  clean_data <- bad_data
+
   
+  # remove some outliers
+  bad_data <- subset(bad_data, bad_data$nght_cnt != 49)
+  
+  clean_data <- bad_data
   # Write clean data to file
   write.csv(clean_data, clean_data_file, row.names = FALSE)
   

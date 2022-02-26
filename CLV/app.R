@@ -34,6 +34,7 @@ source("funcs_for_churning_data.R", local = TRUE)
 source("churn_eda_plot1_func.R", local = TRUE)
 source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
+source("corrolationMatrix.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 
 data <- read.csv("Cleandata.csv")
@@ -63,6 +64,7 @@ server <- function(input, output, session) {
   output$churn_plot_render_1 <- churn_plot1_server(input, output, session, churned_data)
   output$churn_plot_render_2 <- churn_plot2_server(input, output, session, churned_data)
   output$churn_plot_render_3 <- churn_plot3_server(input, output, session, churned_data)
+  output$churn_plot_render_4 <- renderPlot({corrolationMatrix(input, output, session, churned_data)})
   print("Plot Rendering Done.")
 }
 
