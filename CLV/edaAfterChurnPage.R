@@ -36,6 +36,9 @@ eda_after_churn_page <- function() {
            plotOutput("ecdf_plot_render")
     ),
     column(6,
+           plotOutput("churn_vs_not_churn_plot_render")
+    ),
+    column(6,
            # Basic pie chart
            plotlyOutput("churn_plot_render_1")
     ),
