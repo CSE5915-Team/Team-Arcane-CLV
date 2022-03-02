@@ -37,6 +37,7 @@ source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
 source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
+source("kMeans_Clustering_Elbow.R")
 source("churn_vs_not_churn_plot_render.R", local=TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 
@@ -74,8 +75,8 @@ server <- function(input, output, session) {
   output$churn_plot_render_4 <- renderPlot({corrolationMatrix(input, output, session, churned_data)})
   
   #plots for clustering
-  output$elbow_plot <- renderPlot({kMeansCluster(input, output, session, churned_data)[1]})
-  output$cluster_plot <- renderPlot({kMeansCluster(input, output, session, churned_data)[2]})
+  output$elbow_plot <- renderPlot(kMeansElbow(input, output, session, churned_data))
+  output$cluster_plot <- renderPlot(kMeansCluster(input, output, session, churned_data))
   
   print("Plot Rendering Done.")
 }
