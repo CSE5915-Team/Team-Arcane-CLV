@@ -25,6 +25,7 @@ generate_clean_data()
 source("edaPage.R", local = TRUE)
 source("aboutPage.R", local = TRUE)
 source("edaAfterChurnPage.R", local = TRUE)
+source("kmeansClusteringPage.R", local = TRUE)
 
 source("eda_plot1_func.R", local = TRUE)
 source("eda_plot2_func.R", local = TRUE)
@@ -39,13 +40,15 @@ source("kMeans_Clustering.R", local = TRUE)
 source("churn_vs_not_churn_plot_render.R", local=TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 
+
 data <- read.csv("Cleandata.csv")
 
 # Define UI for application that draws a histogram
 ui <- navbarPage("Customer Lifetime Value",
   tabPanel("About", about_page()),
   tabPanel("EDA", eda_page()),
-  tabPanel("EDA After Churn", eda_after_churn_page())
+  tabPanel("EDA After Churn", eda_after_churn_page()),
+  tabPanel("Clustering", kmeansClusteringPage())
 )
   
 
@@ -69,6 +72,11 @@ server <- function(input, output, session) {
   output$churn_plot_render_2 <- churn_plot2_server(input, output, session, churned_data)
   output$churn_plot_render_3 <- churn_plot3_server(input, output, session, churned_data)
   output$churn_plot_render_4 <- renderPlot({corrolationMatrix(input, output, session, churned_data)})
+  
+  #plots for clustering
+  output$elbow_plot <- renderPlot({kMeansCluster(input, output, session, churned_data)[1]})
+  output$cluster_plot <- renderPlot({kMeansCluster(input, output, session, churned_data)[2]})
+  
   print("Plot Rendering Done.")
 }
 
