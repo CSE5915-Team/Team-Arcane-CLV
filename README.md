@@ -32,6 +32,10 @@ This page consists of graphs using data that has only been pre-processed. We hav
 
 This page consists of an ECDF churn plot, multiple line graphs comparing probabilities of churn against various attributes of data. The ECDF plot uses pre-processed data while the line graphs uses data that has been pre-processed and removed of its guaranteed churned customers. The user can interact with the line graphs by adjusting the sliders on the bottom to view particular data and its affect on the corresponding relationships between attributes.
 
+## Data Clustering Page
+
+This page consists of an elbow plot created from the fvuz_nbclust which is used to determine how many clusters we should use. It also contains a graph of clusters which was created by using a k-means clustering function which tries to group data points that have similar attributes. 
+
 ## Contributors
 
 - [Ben Barasch](https://github.com/orgs/CSE5915-Team/people/bbarasch)
