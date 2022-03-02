@@ -51,6 +51,12 @@ generate_clean_data <- function(){
   bad_data <- merge(bad_data, new_key, by = "newid_trips", ALL = TRUE)
   bad_data <- subset(bad_data, select = -c(newid_trips))
   
+  # make lifestage an id
+  hshold_lifestage_last <- unique(bad_data$hshold_lifestage_last)
+  new_lifestage_id <- seq_len(length(hshold_lifestage_last))
+  new_key <- data.frame(hshold_lifestage_last, new_lifestage_id)
+  bad_data <- merge(bad_data, new_key, by = "hshold_lifestage_last", ALL = TRUE)
+  
   # compute the first and last arrival date per customer
   min_dates <- bad_data %>%
     group_by(customer_id) %>%
