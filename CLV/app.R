@@ -35,6 +35,7 @@ source("churn_eda_plot1_func.R", local = TRUE)
 source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
 source("corrolationMatrix.R", local = TRUE)
+source("kMeans_Clustering.R", local = TRUE)
 source("churn_vs_not_churn_plot_render.R", local=TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 
