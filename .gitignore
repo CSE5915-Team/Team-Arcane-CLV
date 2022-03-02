@@ -50,3 +50,4 @@ rsconnect/
 
 # generated csv
 *Cleandata.csv
+*Cleandate_after_churn.csv
