@@ -49,7 +49,10 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("About", about_page()),
   tabPanel("EDA", eda_page()),
   tabPanel("EDA After Churn", eda_after_churn_page()),
-  tabPanel("Clustering", kmeansClusteringPage())
+  navbarMenu("Clustering",
+    tabPanel("K Means", kmeansClusteringPage())
+  )
+  
 )
   
 
