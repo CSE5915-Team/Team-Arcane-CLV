@@ -40,13 +40,13 @@ eda_after_churn_page <- function() {
     ),
     column(6,
            # Basic pie chart
-           plotlyOutput("churn_plot_render_1")
+           plotlyOutput("churn_lifetime")
     ),
     column(6,
-           plotlyOutput("churn_plot_render_2")
+           plotlyOutput("churn_amount")
     ),
     column(6,
-           plotlyOutput("churn_plot_render_3")
+           plotlyOutput("churn_night_cnt")
     )
   )
 )

@@ -39,12 +39,14 @@ source("churn_eda_plot3_func.R", local = TRUE)
 source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
 source("kMeans_Clustering_Elbow.R")
-source("churn_vs_not_churn_plot_render.R", local=TRUE)
+source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 source("whiskerPlot.R", local = TRUE)
 
 
 data <- read.csv("Cleandata.csv")
+generate_after_churn_new_data(data, 0.2)
+churned_data <- read.csv("Cleandata_after_churn.csv")
 
 # Define UI for application that draws a histogram
 ui <- navbarPage("Customer Lifetime Value",
@@ -52,7 +54,9 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("EDA", eda_page()),
   tabPanel("EDA After Churn", eda_after_churn_page()),
   tabPanel("Corrolation", corrolation_matrix_whisker_page()),
-  tabPanel("Clustering", kmeansClusteringPage())
+  navbarMenu("Clustering",
+    tabPanel("Clustering", kmeansClusteringPage())
+  )
 )
   
 
@@ -62,28 +66,25 @@ server <- function(input, output, session) {
   output$plot_render_1 <- plot1_server(input, output, session)
   output$plot_render_2 <- plot2_server(input, output, session)
   output$plot_render_3 <- plot3_server(input, output, session)
-  
-  data <- modify_data_for_ecdf(data)
-  output$ecdf_plot_render <- ecdf_plot_server(data)
-  data <- add_churn_flag(data)
-  output$churn_vs_not_churn_plot_render <- churn_vs_not_churn_plot_server(data) 
-  generate_after_churn_new_data(data, 0.2)
-  churned_data <- read.csv("Cleandata_after_churn.csv")
-  
-  #Plots for all the graphs based on the churned data
-  output$churn_plot_render_1 <- churn_plot1_server(input, output, session, churned_data)
-  output$churn_plot_render_2 <- churn_plot2_server(input, output, session, churned_data)
-  output$churn_plot_render_3 <- churn_plot3_server(input, output, session, churned_data)
+  #modify data to add churn metrics
+  output$ecdf_plot_render <- ecdf_plot_server(churned_data)
+  output$churn_vs_not_churn_plot_render <- churn_vs_not_churn_plot_server(churned_data)
 
-  
+  #Plots for all the graphs based on the churned data
+  output$churn_lifetime <-
+    churn_plot1_server(input, output, session, churned_data)
+  output$churn_amount <-
+    churn_plot2_server(input, output, session, churned_data)
+  output$churn_night_cnt <-
+    churn_plot3_server(input, output, session, churned_data)
   #Plots correlation matrix/whisker plots
   output$corrolation_matrix <- renderPlot(corrolationMatrix(churned_data))
   output$whisker_plot <- renderPlot(whiskerPlot(churned_data))
-  
   #plots for clustering
-  output$elbow_plot <- renderPlot(kMeansElbow(input, output, session, churned_data))
-  output$cluster_plot <- renderPlot(kMeansCluster(input, output, session, churned_data))
-  
+  output$elbow_plot <-
+    renderPlot(kMeansElbow(input, output, session, churned_data))
+  output$cluster_plot <-
+    renderPlot(kMeansCluster(input, output, session, churned_data))
   print("Plot Rendering Done.")
 }
 
