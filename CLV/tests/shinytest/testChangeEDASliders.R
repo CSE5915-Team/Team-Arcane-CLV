@@ -1,5 +1,5 @@
 app <- ShinyDriver$new("../../")
-app$snapshotInit("changeEDASliders")
+app$snapshotInit("testChangeEDASliders")
 
 app$snapshot()
 app$setInputs(household_lifestage = c("CORE", "ADULTS"))
