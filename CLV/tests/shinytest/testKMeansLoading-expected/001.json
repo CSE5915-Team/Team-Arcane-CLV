@@ -1,0 +1,36 @@
+{
+  "input": {
+    "churn_household_lifestage": "CORE",
+    "churn_income": [
+      8750,
+      531250
+    ],
+    "churn_networth": [
+      6250.25,
+      625000
+    ],
+    "churn_night_count": [
+      0,
+      36
+    ],
+    "household_lifestage": "CORE",
+    "income": [
+      8750,
+      531250
+    ],
+    "networth": [
+      6250.25,
+      625000
+    ],
+    "night_count": [
+      0,
+      36
+    ]
+  },
+  "output": {
+
+  },
+  "export": {
+
+  }
+}

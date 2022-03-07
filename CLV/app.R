@@ -55,7 +55,7 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("EDA After Churn", eda_after_churn_page()),
   tabPanel("Corrolation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
-    tabPanel("Clustering", kmeansClusteringPage())
+    tabPanel("K Means", kmeansClusteringPage())
   )
 )
   
@@ -66,6 +66,7 @@ server <- function(input, output, session) {
   output$plot_render_1 <- plot1_server(input, output, session)
   output$plot_render_2 <- plot2_server(input, output, session)
   output$plot_render_3 <- plot3_server(input, output, session)
+
   #modify data to add churn metrics
   output$ecdf_plot_render <- ecdf_plot_server(churned_data)
   output$churn_vs_not_churn_plot_render <- churn_vs_not_churn_plot_server(churned_data)
@@ -85,6 +86,7 @@ server <- function(input, output, session) {
     renderPlot(kMeansElbow(input, output, session, churned_data))
   output$cluster_plot <-
     renderPlot(kMeansCluster(input, output, session, churned_data))
+
   print("Plot Rendering Done.")
 }
 
