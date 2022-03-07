@@ -11,16 +11,16 @@ modify_data_for_ecdf <- function(data){
 generate_after_churn_new_data <- function(data, churn){
   # orders the diff_btwn_dates_in_days in increasing order based on the days
   data[order(data$diff_btwn_dates_in_days, decreasing = FALSE), ]
+  
   # creates a new dataframe by returning the top 80% of the ecdf graph
   data <- data %>% top_frac(1 - churn)
   
   ecdf_percentiles <- ecdf(data$diff_btwn_dates_in_days)
   data <- data%>%mutate(churn_probabilities =
                           1 - ecdf_percentiles(data$diff_btwn_dates_in_days))
+  
   # orders new dataframe by customer_id for neatness
   data[order(data$customer_id, decreasing = FALSE), ]
-  
-  data <- subset (data, select = -churn_flag)
   
   # writes new dataframe to file
   write.csv(data, "Cleandata_after_churn.csv", row.names = FALSE)

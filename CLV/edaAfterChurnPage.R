@@ -48,9 +48,6 @@ eda_after_churn_page <- function() {
     column(6,
            plotlyOutput("churn_plot_render_3")
     )
-  ),
-  fluidRow(
-    plotOutput("churn_plot_render_4")
   )
 )
 }
