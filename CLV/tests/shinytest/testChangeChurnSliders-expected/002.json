@@ -1,27 +1,23 @@
 {
   "input": {
-    "churn_household_lifestage": "CORE",
+    "churn_household_lifestage": [
+      "CORE",
+      "TEEN",
+      "YOUNG ADULTS"
+    ],
     "churn_income": [
       8750,
-      531250
+      407173
     ],
     "churn_networth": [
-      6250.25,
-      625000
+      81250,
+      476250
     ],
     "churn_night_count": [
       0,
-      36
+      28.5
     ],
-    "household_lifestage": [
-      "CORE",
-      "ADULTS",
-      "TEEN",
-      "YOUNG ADULTS",
-      "TWEEN",
-      "SENIORS",
-      "PREK"
-    ],
+    "household_lifestage": "CORE",
     "income": [
       8750,
       531250
