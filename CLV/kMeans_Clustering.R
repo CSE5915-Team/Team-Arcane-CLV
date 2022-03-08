@@ -1,7 +1,3 @@
-library("factoextra")
-
-
-
 kMeansCluster <- function(input, output, session, data) {
 
 df <- subset(data,
@@ -10,9 +6,9 @@ df <- subset(data,
                           gst_cnt_sum, new_lifestage_id))    
   
 # Now, we want to cluster with the optimal number of clusters
-kmean <-kmeans(df, 4, iter.max = 20, nstart = 100)
+kmean <-kmeans(df, 10, iter.max = 20, nstart = 100)
 # visualize our clusters
-cluster_plot <- fviz_cluster(kmean, data = df, palette = c("#2E9FDF", "#00AFBB", "#E7B800", "black"), 
+cluster_plot <- fviz_cluster(kmean, data = df, 
              geom = "point",
              ellipse.type = "convex", 
              ggtheme = theme_bw()
