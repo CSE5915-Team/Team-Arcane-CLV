@@ -1,4 +1,4 @@
-pamClusteringPage <- function() {
+pam_clustering_page <- function() {
   fluidPage(
     titlePanel("PAM Clustering"),
     fluidRow(

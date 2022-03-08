@@ -60,7 +60,7 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("Corrolation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
-    tabPanel("PAM", pamClusteringPage())
+    tabPanel("PAM", pam_clustering_page())
   )
 )
   
@@ -92,7 +92,7 @@ server <- function(input, output, session) {
   output$kmeans_cluster_plot <-
     renderPlot(kMeansCluster(input, output, session, churned_data))
   output$pam_cluster_plot <-
-    renderPlot(pamCluster(input, output, session, churned_data))
+    renderPlot(pam_cluster(input, output, session, churned_data))
 
   print("Plot Rendering Done.")
 }
