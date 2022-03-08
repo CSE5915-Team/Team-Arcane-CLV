@@ -15,8 +15,10 @@ generate_after_churn_new_data <- function(data, churn){
   
   # writes new dataframe to file
   write.csv(data, "Cleandata_after_churn.csv", row.names = FALSE)
+  
+  return(data) # for-testing purposes
 }
-
+#
 add_churn_flag <- function(data){
   ecdf_percentiles <- ecdf(data$diff_btwn_dates_in_days)
   data <- data%>%mutate(ecdf_probabilities = ecdf_percentiles(data$diff_btwn_dates_in_days))
@@ -28,6 +30,6 @@ add_churn_flag <- function(data){
 modify_data_for_ecdf <- function(data){
   minDate <- min(data$max_arvl_dt)
   data <- data%>%mutate(diff_btwn_dates_in_days =
-                          difftime(max_arvl_dt, minDate, units = "days"))
+                          as.numeric(difftime(max_arvl_dt, minDate, units = "days")))
   return(data)
 }
