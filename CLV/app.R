@@ -14,6 +14,8 @@ library(hrbrthemes)
 library(showtext)
 library(tidyverse)
 library(lintr)
+library(cluster)
+library("factoextra")
 font_add("Arial Narrow", regular = "ARIALN.TTF")
 font_add("Arial", regular = "arial.ttf")
 showtext_auto()
@@ -26,6 +28,7 @@ source("edaPage.R", local = TRUE)
 source("aboutPage.R", local = TRUE)
 source("edaAfterChurnPage.R", local = TRUE)
 source("kmeansClusteringPage.R", local = TRUE)
+source("pamClusteringPage.R", local = TRUE)
 source("corrolationMatrixWhiskerPage.R", local = TRUE)
 
 source("eda_plot1_func.R", local = TRUE)
@@ -38,6 +41,7 @@ source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
 source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
+source("pam_Clustering.R", local = TRUE)
 source("kMeans_Clustering_Elbow.R")
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
@@ -55,7 +59,8 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("EDA After Churn", eda_after_churn_page()),
   tabPanel("Corrolation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
-    tabPanel("K Means", kmeansClusteringPage())
+    tabPanel("K Means", kmeansClusteringPage()),
+    tabPanel("PAM", pamClusteringPage())
   )
 )
   
@@ -84,8 +89,10 @@ server <- function(input, output, session) {
   #plots for clustering
   output$elbow_plot <-
     renderPlot(kMeansElbow(input, output, session, churned_data))
-  output$cluster_plot <-
+  output$kmeans_cluster_plot <-
     renderPlot(kMeansCluster(input, output, session, churned_data))
+  output$pam_cluster_plot <-
+    renderPlot(pamCluster(input, output, session, churned_data))
 
   print("Plot Rendering Done.")
 }

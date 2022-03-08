@@ -7,7 +7,7 @@ kmeansClusteringPage <- function() {
              plotOutput("elbow_plot")
       ),
       column(6,
-             plotOutput("cluster_plot")
+             plotOutput("kmeans_cluster_plot")
       )
     )
   )
