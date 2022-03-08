@@ -6,7 +6,7 @@ pam_cluster <- function(input, output, session, data) {
                           gst_cnt_sum, new_lifestage_id))
 
   # Now, we want to cluster with the optimal number of clusters
-  pam <- pam(df, k = 10)
+  pam <- pam(df, k = input$pam_cluster_num)
   # visualize our clusters
   cluster_plot <- fviz_cluster(pam, data = df,
                                geom = "point",

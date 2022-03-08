@@ -6,7 +6,7 @@ df <- subset(data,
                           gst_cnt_sum, new_lifestage_id))    
   
 # Now, we want to cluster with the optimal number of clusters
-kmean <-kmeans(df, 10, iter.max = 20, nstart = 100)
+kmean <-kmeans(df, input$kmeans_cluster_num, iter.max = 20, nstart = 100)
 # visualize our clusters
 cluster_plot <- fviz_cluster(kmean, data = df, 
              geom = "point",
