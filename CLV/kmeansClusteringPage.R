@@ -7,8 +7,16 @@ kmeansClusteringPage <- function() {
              plotOutput("elbow_plot")
       ),
       column(6,
-             plotOutput("cluster_plot")
+             plotOutput("kmeans_cluster_plot")
       )
+    ),
+    fluidRow(
+      sliderInput("kmeans_cluster_num",
+                  label = "Number of Clusters",
+                  min = 1,
+                  max = 20,
+                  value = 4,
+                  width = "100%")
     )
   )
 }
