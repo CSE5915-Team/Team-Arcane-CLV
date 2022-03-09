@@ -11,7 +11,7 @@ churn_plot1_server <- function(input, output, session, data) {
       ggplot(aes(x = customer_lifetime, y = churn_probabilities, color = hshold_lifestage_last)) +
       ggtitle("Churn Probability vs. Customer Lifetime") +
       geom_point(size = 1) +
-      geom_smooth(method = lm, color = "red", se = FALSE) +
+      geom_smooth(formula = y ~ x,method = lm, color = "red", se = FALSE) +
       theme_ipsum() +
       xlab("Customer Lifetime") +
       ylab("Churn Probability") +
