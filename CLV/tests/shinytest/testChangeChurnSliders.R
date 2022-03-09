@@ -1,4 +1,4 @@
-app <- ShinyDriver$new("../../")
+app <- ShinyDriver$new("../../", loadTimeout = 100000)
 app$snapshotInit("testChangeChurnSliders")
 
 app$snapshot()

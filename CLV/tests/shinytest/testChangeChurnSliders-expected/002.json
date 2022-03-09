@@ -22,6 +22,8 @@
       8750,
       531250
     ],
+    "kmeans_cluster_num": 4,
+    "kMode_cluster_num": 4,
     "networth": [
       6250.25,
       625000
@@ -29,7 +31,8 @@
     "night_count": [
       0,
       36
-    ]
+    ],
+    "pam_cluster_num": 4
   },
   "output": {
 
