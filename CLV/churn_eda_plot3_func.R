@@ -11,7 +11,7 @@ churn_plot3_server <- function(input, output, session, data) {
                ggplot(aes(x = nght_cnt, y = churn_probabilities, color = hshold_lifestage_last)) +
                ggtitle("Churn Probability vs. Night Count") +
                geom_point(size = 1) +
-               geom_smooth(method = lm, color = "red", se = FALSE) +
+               geom_smooth(formula = y ~ x, method = lm, color = "red", se = FALSE) +
                theme_ipsum() +
                xlab("Night Count") +
                ylab("Churn Probability") +

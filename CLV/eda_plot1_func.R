@@ -16,7 +16,7 @@ plot1_server <- function(input, output, session) {
                                    "Total Amount: ", scales::dollar(tot_amt), "<br>")
                  )
       ) +
-      geom_smooth(method = lm, color = "red", se = FALSE) +
+      geom_smooth(formula = y ~ x, method = lm, color = "red", se = FALSE) +
       theme_ipsum() +
       xlab("Night Count") +
       scale_y_continuous("Total Amount ($)",

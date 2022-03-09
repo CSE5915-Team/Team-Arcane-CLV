@@ -18,7 +18,7 @@ plot2_server <- function(input, output, session) {
                                  "Income Sum: ", scales::dollar(income_1_avg + income_2_avg), "<br>")
                  )
       ) +
-      geom_smooth(method = lm, color = "red", se = FALSE) +
+      geom_smooth(formula = y ~ x, method = lm, color = "red", se = FALSE) +
       theme_ipsum() +
       xlab("Night Count") +
       scale_y_continuous("Total Income ($)",
