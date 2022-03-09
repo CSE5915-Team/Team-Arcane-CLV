@@ -1,13 +1,14 @@
+library("shinycssloaders")
 kmeansClusteringPage <- function() {
   fluidPage(
     # Application title
     titlePanel("K Means Clustering"),
     fluidRow(
       column(6,
-             plotOutput("elbow_plot")
+             plotOutput("elbow_plot") %>% withSpinner(type = 5)
       ),
       column(6,
-             plotOutput("kmeans_cluster_plot")
+             plotOutput("kmeans_cluster_plot") %>% withSpinner(type = 5)
       )
     ),
     fluidRow(

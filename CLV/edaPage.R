@@ -1,3 +1,4 @@
+library("shinycssloaders")
 eda_page <- function() {
   fluidPage(
   # Application title
@@ -36,15 +37,15 @@ eda_page <- function() {
   fluidRow(
     column(6,
       # Basic pie chart
-      plotlyOutput("plot_render_1")
+      plotlyOutput("plot_render_1") %>% withSpinner(type = 5)
     ),
     column(6,
-      plotlyOutput("plot_render_2")
+      plotlyOutput("plot_render_2") %>% withSpinner(type = 5)
     )
   ),
   fluidRow(
     column(6,
-      plotlyOutput("plot_render_3")
+      plotlyOutput("plot_render_3") %>% withSpinner(type = 5)
     )
   )
 )

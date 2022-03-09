@@ -1,3 +1,4 @@
+library("shinycssloaders")
 data <- read.csv("Cleandata.csv")
 
 eda_after_churn_page <- function() {
@@ -33,20 +34,20 @@ eda_after_churn_page <- function() {
   ),
   fluidRow(
     column(6,
-           plotOutput("ecdf_plot_render")
+           plotOutput("ecdf_plot_render") %>% withSpinner(type = 5)
     ),
     column(6,
-           plotOutput("churn_vs_not_churn_plot_render")
+           plotOutput("churn_vs_not_churn_plot_render") %>% withSpinner(type = 5)
     ),
     column(6,
            # Basic pie chart
-           plotlyOutput("churn_lifetime")
+           plotlyOutput("churn_lifetime") %>% withSpinner(type = 5)
     ),
     column(6,
-           plotlyOutput("churn_amount")
+           plotlyOutput("churn_amount") %>% withSpinner(type = 5)
     ),
     column(6,
-           plotlyOutput("churn_night_cnt")
+           plotlyOutput("churn_night_cnt") %>% withSpinner(type = 5)
     )
   )
 )

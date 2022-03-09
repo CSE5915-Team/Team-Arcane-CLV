@@ -1,8 +1,9 @@
+library("shinycssloaders")
 kMode_clustering_page <- function() {
   fluidPage(
     titlePanel("K Mode Clustering"),
     fluidRow(
-      plotOutput("kMode_Cluster_Plot")
+      plotOutput("kMode_Cluster_Plot") %>% withSpinner(type = 5)
     ),
     fluidRow(
       sliderInput("kMode_cluster_num",
