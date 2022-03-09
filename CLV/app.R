@@ -29,6 +29,7 @@ source("aboutPage.R", local = TRUE)
 source("edaAfterChurnPage.R", local = TRUE)
 source("kmeansClusteringPage.R", local = TRUE)
 source("pamClusteringPage.R", local = TRUE)
+source("kMode_clustering_page.R", local = TRUE)
 source("corrolationMatrixWhiskerPage.R", local = TRUE)
 
 source("eda_plot1_func.R", local = TRUE)
@@ -42,6 +43,7 @@ source("churn_eda_plot3_func.R", local = TRUE)
 source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
 source("pam_Clustering.R", local = TRUE)
+source("kMode_Clustering.R", local = TRUE)
 source("kMeans_Clustering_Elbow.R")
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
@@ -60,7 +62,8 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("Corrolation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
-    tabPanel("PAM", pam_clustering_page())
+    tabPanel("PAM", pam_clustering_page()),
+    tabPanel("K Mode", kMode_clustering_page())
   )
 )
   
@@ -93,7 +96,8 @@ server <- function(input, output, session) {
     renderPlot(kMeansCluster(input, output, session, churned_data))
   output$pam_cluster_plot <-
     renderPlot(pam_cluster(input, output, session, churned_data))
-
+  output$kMode_Cluster_Plot <- 
+    renderPlot(kModeCluster(input, output, session, churned_data))
   print("Plot Rendering Done.")
 }
 
