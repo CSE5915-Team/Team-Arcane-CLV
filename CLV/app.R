@@ -8,7 +8,6 @@
 #
 
 library(shiny)
-library(ggplot2)
 library(plotly)
 library(hrbrthemes)
 library(showtext)
@@ -20,6 +19,8 @@ library(fpc)
 library(shinycssloaders)
 library(shinytest)
 library(factoextra)
+library(clustMixType)
+library(lintr)
 font_add("Arial Narrow", regular = "ARIALN.TTF")
 font_add("Arial", regular = "arial.ttf")
 showtext_auto()
@@ -34,6 +35,7 @@ source("edaAfterChurnPage.R", local = TRUE)
 source("kmeansClusteringPage.R", local = TRUE)
 source("pamClusteringPage.R", local = TRUE)
 source("kMode_clustering_page.R", local = TRUE)
+source("kProto_clustering_page.R", local = TRUE)
 source("corrolationMatrixWhiskerPage.R", local = TRUE)
 
 source("eda_plot1_func.R", local = TRUE)
@@ -46,6 +48,7 @@ source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
 source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
+source("kProto_Clustering.R", local = TRUE)
 source("pam_Clustering.R", local = TRUE)
 source("kMode_Clustering.R", local = TRUE)
 source("kMeans_Clustering_Elbow.R")
@@ -67,7 +70,8 @@ ui <- navbarPage("Customer Lifetime Value",
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
     tabPanel("PAM", pam_clustering_page()),
-    tabPanel("K Mode", kMode_clustering_page())
+    tabPanel("K Mode", k_mode_clustering_page()),
+    tabPanel("K Proto", k_proto_clustering_page())
   )
 )
   
@@ -81,7 +85,8 @@ server <- function(input, output, session) {
 
   #modify data to add churn metrics
   output$ecdf_plot_render <- ecdf_plot_server(churned_data)
-  output$churn_vs_not_churn_plot_render <- churn_vs_not_churn_plot_server(churned_data)
+  output$churn_vs_not_churn_plot_render <-
+    churn_vs_not_churn_plot_server(churned_data)
 
   #Plots for all the graphs based on the churned data
   output$churn_lifetime <-
@@ -95,13 +100,15 @@ server <- function(input, output, session) {
   output$whisker_plot <- renderPlot(whiskerPlot(churned_data))
   #plots for clustering
   output$elbow_plot <-
-    renderPlot(kMeansElbow(input, output, session, churned_data))
+    renderPlot(KMeansElbow(input, output, session, churned_data))
   output$kmeans_cluster_plot <-
-    renderPlot(kMeansCluster(input, output, session, churned_data))
+    renderPlot(k_means_cluster(input, output, session, churned_data))
   output$pam_cluster_plot <-
     renderPlot(pam_cluster(input, output, session, churned_data))
-  output$kMode_Cluster_Plot <- 
-    renderPlot(kModeCluster(input, output, session, churned_data))
+  output$k_mode_cluster_plot <-
+    renderPlot(k_mode_cluster(input, output, session, churned_data))
+  output$k_proto_cluster_plot <-
+    renderPlot(k_proto_cluster(input, output, session, churned_data))
   print("Plot Rendering Done.")
 }
 

@@ -1,11 +1,11 @@
-k_mode_clustering_page <- function() {
+k_proto_clustering_page <- function() {
   fluidPage(
-    titlePanel("K Mode Clustering"),
+    titlePanel("K Prototype Clustering"),
     fluidRow(
-      plotOutput("k_mode_cluster_plot") %>% withSpinner(type = 5)
+      plotOutput("k_proto_cluster_plot") %>% withSpinner(type = 5)
     ),
     fluidRow(
-      sliderInput("kMode_cluster_num",
+      sliderInput("kProto_cluster_num",
                   label = "Number of Clusters",
                   min = 1,
                   max = 20,
