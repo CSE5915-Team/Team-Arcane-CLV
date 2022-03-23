@@ -11,8 +11,7 @@ h_cluster <- function(input, output, session, data) {
   
   hclus <- hclust(d, method = "complete" )
   # visualize our clusters
-  #cluster_plot <- ggdendrogram(hclus, rotate= FALSE, size = 2)
-  cluster_plot <- plot(hclus, cex = .6, hang = -1)
+  cluster_plot <- ggdendrogram(hclus, rotate= FALSE, size = 2)
   
   return(cluster_plot)
 }
