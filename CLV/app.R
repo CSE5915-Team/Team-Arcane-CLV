@@ -34,6 +34,7 @@ source("aboutPage.R", local = TRUE)
 source("edaAfterChurnPage.R", local = TRUE)
 source("kmeansClusteringPage.R", local = TRUE)
 source("pamClusteringPage.R", local = TRUE)
+source("hClusteringPage.R", local = TRUE)
 source("kMode_clustering_page.R", local = TRUE)
 source("kProto_clustering_page.R", local = TRUE)
 source("corrolationMatrixWhiskerPage.R", local = TRUE)
@@ -50,6 +51,7 @@ source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
 source("kProto_Clustering.R", local = TRUE)
 source("pam_Clustering.R", local = TRUE)
+source("h_clustering.R", local = TRUE)
 source("kMode_Clustering.R", local = TRUE)
 source("kMeans_Clustering_Elbow.R")
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
@@ -71,7 +73,8 @@ ui <- navbarPage("Customer Lifetime Value",
     tabPanel("K Means", kmeansClusteringPage()),
     tabPanel("PAM", pam_clustering_page()),
     tabPanel("K Mode", k_mode_clustering_page()),
-    tabPanel("K Proto", k_proto_clustering_page())
+    tabPanel("K Proto", k_proto_clustering_page()),
+    tabPanel("Hierarchical", h_clustering_page())
   )
 )
   
@@ -109,6 +112,8 @@ server <- function(input, output, session) {
     renderPlot(k_mode_cluster(input, output, session, churned_data))
   output$k_proto_cluster_plot <-
     renderPlot(k_proto_cluster(input, output, session, churned_data))
+  output$h_cluster_plot <- 
+    renderPlot(h_cluster(input, output, session, churned_data))
   print("Plot Rendering Done.")
 }
 
