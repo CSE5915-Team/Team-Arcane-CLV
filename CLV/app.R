@@ -55,6 +55,7 @@ source("kMeans_Clustering_Elbow.R")
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 source("whiskerPlot.R", local = TRUE)
+source("downloadClusteringDataPage.R", local = TRUE)
 
 
 data <- read.csv("Cleandata.csv")
@@ -66,12 +67,13 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("About", about_page()),
   tabPanel("EDA", eda_page()),
   tabPanel("EDA After Churn", eda_after_churn_page()),
-  tabPanel("Corrolation", corrolation_matrix_whisker_page()),
+  tabPanel("Correlation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
     tabPanel("PAM", pam_clustering_page()),
     tabPanel("K Mode", k_mode_clustering_page()),
-    tabPanel("K Proto", k_proto_clustering_page())
+    tabPanel("K Proto", k_proto_clustering_page()),
+    tabPanel("Download Clustering Data Page", downloadClusterDataPage())
   )
 )
   
@@ -98,6 +100,8 @@ server <- function(input, output, session) {
   #Plots correlation matrix/whisker plots
   output$corrolation_matrix <- renderPlot(corrolationMatrix(churned_data))
   output$whisker_plot <- renderPlot(whiskerPlot(churned_data))
+  
+  
   #plots for clustering
   output$elbow_plot <-
     renderPlot(KMeansElbow(input, output, session, churned_data))
@@ -109,6 +113,32 @@ server <- function(input, output, session) {
     renderPlot(k_mode_cluster(input, output, session, churned_data))
   output$k_proto_cluster_plot <-
     renderPlot(k_proto_cluster(input, output, session, churned_data))
+  
+  
+  # files for each cluster
+  pam <- read.csv("pam.csv")
+  colnames(pam) <- c('ID','Pam Cluster')  
+  kmeans <- read.csv("kmeans.csv")
+  colnames(kmeans) <- c('ID','K Means')
+  kmode <- read.csv("kmode.csv")
+  colnames(kmode) <- c('ID','K Modes')
+  kproto <- read.csv("kproto.csv")
+  colnames(kproto) <- c('ID','K Prototype')
+  
+  
+  # combined into one cluster dataframe
+  cluster_data <- downloadClusterData(kmeans, pam, kmode, kproto)
+  
+  #create download button
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste('data-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(file) {
+      write.csv(cluster_data, file)
+    }
+  )
+  
   print("Plot Rendering Done.")
 }
 
