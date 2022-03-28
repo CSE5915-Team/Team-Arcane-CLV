@@ -50,6 +50,7 @@ source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
 source("kmeans_Cluster_analysis.R", local = TRUE)
 source("kProto_Clustering.R", local = TRUE)
+source("kproto_Cluster_analysis.R", local = TRUE)
 source("pam_Clustering.R", local = TRUE)
 source("pam_Cluster_analysis.R", local = TRUE)
 source("kMode_Clustering.R", local = TRUE)
@@ -125,7 +126,8 @@ server <- function(input, output, session) {
   
   output$k_proto_cluster_plot <-
     renderPlot(k_proto_cluster(input, output, session, churned_data))
-  
+  output$kproto_table_plot <- 
+    renderTable(kproto_cluster_table(input, output, session, churned_data))
   
   # files for each cluster
   pam <- read.csv("pam.csv")
