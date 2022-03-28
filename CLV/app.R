@@ -48,6 +48,7 @@ source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
 source("corrolationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
+source("kmeans_Cluster_analysis.R", local = TRUE)
 source("kProto_Clustering.R", local = TRUE)
 source("pam_Clustering.R", local = TRUE)
 source("pam_Cluster_analysis.R", local = TRUE)
@@ -108,6 +109,8 @@ server <- function(input, output, session) {
     renderPlot(kMeansElbow(input, output, session, churned_data))
   output$kmeans_cluster_plot <-
     renderPlot(k_means_cluster(input, output, session, churned_data))
+  output$kmeans_table_plot <- 
+    renderTable(kmeans_cluster_table(input, output, session, churned_data))
   
   output$pam_cluster_plot <-
     renderPlot(pam_cluster(input, output, session, churned_data))
