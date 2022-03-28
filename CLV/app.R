@@ -53,6 +53,7 @@ source("kProto_Clustering.R", local = TRUE)
 source("pam_Clustering.R", local = TRUE)
 source("pam_Cluster_analysis.R", local = TRUE)
 source("kMode_Clustering.R", local = TRUE)
+source("kmode_cluster_analysis.R", local = TRUE)
 source("kMeans_Clustering_Elbow.R", local = TRUE)
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
@@ -119,6 +120,9 @@ server <- function(input, output, session) {
   
   output$k_mode_cluster_plot <-
     renderPlot(k_mode_cluster(input, output, session, churned_data))
+  output$kmode_table_plot <- 
+    renderTable(kmode_cluster_table(input, output, session, churned_data))
+  
   output$k_proto_cluster_plot <-
     renderPlot(k_proto_cluster(input, output, session, churned_data))
   
