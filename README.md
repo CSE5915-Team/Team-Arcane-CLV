@@ -43,7 +43,7 @@ This page consists of an ECDF churn plot, multiple line graphs comparing probabi
 
 ## Correlation Page
 
-This page has a static Corrolation matrix and whisker plots for churn/not churned. For the corrolation matrix the red stars represent the p value, the more stars the more signifigant the result. The R-squared values are in the box with the stars. This shows the corrolation for the measures in the x and y axis. Diagonaly there is a histogram for each measure. Below are the scatter plots that the linear regression is derived from. For the whisker plots we are mainly checking to see patterns that exist among churned and not churned customers.
+This page has a static Correlation matrix and whisker plots for churn/not churned. For the correlation matrix the red stars represent the p value, the more stars the more signifigant the result. The R-squared values are in the box with the stars. This shows the correlation for the measures in the x and y axis. Diagonaly there is a histogram for each measure. Below are the scatter plots that the linear regression is derived from. For the whisker plots we are mainly checking to see patterns that exist among churned and not churned customers.
 
 ## Data Clustering Page
 
