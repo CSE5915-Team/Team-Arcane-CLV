@@ -13,7 +13,7 @@ generate_clean_data <- function(){
   
   # Preprocess data
   bad_data <- read.csv(bad_data_file, stringsAsFactors = FALSE) # Bad data
-  
+  head(bad_data)
   # remove unused columns
   bad_data <- subset(bad_data,
                      select = -c(prev_dprt_dt, gst_jnr,
