@@ -18,6 +18,12 @@ kmeansClusteringPage <- function() {
                   max = 20,
                   value = 4,
                   width = "100%")
+    ),
+    fluidRow(
+      h2("Churn ratios per cluster")
+    ),
+    fluidRow(
+      tableOutput("kmeans_table_plot")
     )
   )
 }

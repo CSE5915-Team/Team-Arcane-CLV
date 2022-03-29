@@ -11,6 +11,12 @@ k_mode_clustering_page <- function() {
                   max = 20,
                   value = 4,
                   width = "100%")
+    ),
+    fluidRow(
+      h2("Churn ratios per cluster")
+    ),
+    fluidRow(
+      tableOutput("kmode_table_plot")
     )
   )
 }
