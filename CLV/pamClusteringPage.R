@@ -1,4 +1,3 @@
-library("shinycssloaders")
 pam_clustering_page <- function() {
   fluidPage(
     titlePanel("PAM Clustering"),

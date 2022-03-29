@@ -1,5 +1,3 @@
-source("downloadClusteringData.R", local = TRUE)
-
 k_proto_cluster <- function(input, output, session, data) {
   # can play around with changing what variables are facotors or numerics
   x1 <- as.factor(data$hshold_lifestage_last)

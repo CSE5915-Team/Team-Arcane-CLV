@@ -1,6 +1,3 @@
-# Download page
-source("downloadClusteringData.R", local = TRUE)
-      
 #layout for download button
       
 downloadClusterDataPage <- function(){
