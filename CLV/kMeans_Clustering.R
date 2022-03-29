@@ -1,6 +1,3 @@
-source("downloadClusteringData.R", local = TRUE)
-
-
 k_means_cluster <- function(input, output, session, data) {
 
     df <- subset(data,

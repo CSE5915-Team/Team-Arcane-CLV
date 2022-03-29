@@ -1,5 +1,3 @@
-source("downloadClusteringDataPage.R", local = TRUE)
-
 pam_cluster <- function(input, output, session, data) {
 
   df <- subset(data,
