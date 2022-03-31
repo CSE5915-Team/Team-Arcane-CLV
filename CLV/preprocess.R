@@ -30,14 +30,14 @@ generate_clean_data <- function(){
   
   # fix date fields
   bad_data <- mutate(bad_data, bkng_dt =
-                       as.double(bkng_dt))
+                       paste(substr(bkng_dt, 1, 2), substr(bkng_dt, 4, 6), sep = ""))
   
-  bad_data <- mutate(bad_data, bkng_dt = convertToDate(bkng_dt))
+  bad_data <- mutate(bad_data, bkng_dt = convertToDate(c(bkng_dt)))
   
   bad_data <- mutate(bad_data, arvl_dt =
-                       as.double(arvl_dt))
+                       paste(substr(arvl_dt, 1, 2), substr(arvl_dt, 4, 6), sep = ""))
   
-  bad_data <- mutate(bad_data, arvl_dt = convertToDate(arvl_dt))
+  bad_data <- mutate(bad_data, arvl_dt = convertToDate(c(arvl_dt)))
   
   # remove bad dates
   bad_data <- subset(bad_data, bad_data$arvl_dt < Sys.Date())
