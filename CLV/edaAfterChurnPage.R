@@ -11,7 +11,7 @@ eda_after_churn_page <- function() {
       # life stage filter
       selectInput("churn_household_lifestage", label = "Household Lifestage",
                  choices = unique(data$hshold_lifestage_last), multiple = TRUE,
-                 selected = "CORE"),
+                 selected = data$hshold_lifestage_last[1]),
       # night count filter
       sliderInput("churn_night_count", "Night Count", width = "100%",
                  min = min(data["nght_cnt"]), max = max(data["nght_cnt"]),

@@ -40,8 +40,6 @@ source("corrolationMatrixWhiskerPage.R", local = TRUE)
 source("hClusteringPage.R", local = TRUE)
 
 source("eda_plot1_func.R", local = TRUE)
-source("eda_plot2_func.R", local = TRUE)
-source("eda_plot3_func.R", local = TRUE)
 
 source("funcs_for_churning_data.R", local = TRUE)
 source("churn_eda_plot1_func.R", local = TRUE)
@@ -89,8 +87,6 @@ ui <- navbarPage("Customer Lifetime Value",
 server <- function(input, output, session) {
   print("Plot Rendering Beginning.")
   output$plot_render_1 <- plot1_server(input, output, session)
-  output$plot_render_2 <- plot2_server(input, output, session)
-  output$plot_render_3 <- plot3_server(input, output, session)
 
   #modify data to add churn metrics
   output$ecdf_plot_render <- ecdf_plot_server(churned_data)

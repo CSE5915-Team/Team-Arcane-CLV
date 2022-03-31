@@ -6,12 +6,24 @@ eda_page <- function() {
   # Fluid rows layout
   fluidRow(
     column(6,
+       selectInput("x_axis",
+                   label = "X Axis Input",
+                   choices = names(data),
+                   multiple = FALSE,
+                   selected = names(data)[1]),
+       selectInput("y_axis",
+                   label = "Y Axis Input",
+                   choices = names(data),
+                   multiple = FALSE,
+                   selected = names(data)[1]),
+    ),
+    column(6,
       # life stage filter
       selectInput("household_lifestage",
         label = "Household Lifestage",
         choices = unique(data$hshold_lifestage_last),
         multiple = TRUE,
-        selected = "CORE"),
+        selected = data$hshold_lifestage_last[1]),
       # night count filter
       sliderInput("night_count", "Night Count", width = "100%",
                 min = min(data["nght_cnt"]),
@@ -35,18 +47,8 @@ eda_page <- function() {
     )
   ),
   fluidRow(
-    column(6,
       # Basic pie chart
       plotlyOutput("plot_render_1") %>% withSpinner(type = 5)
-    ),
-    column(6,
-      plotlyOutput("plot_render_2") %>% withSpinner(type = 5)
-    )
-  ),
-  fluidRow(
-    column(6,
-      plotlyOutput("plot_render_3") %>% withSpinner(type = 5)
-    )
   )
-)
+  )
 }
