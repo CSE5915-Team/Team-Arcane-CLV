@@ -23,10 +23,10 @@ generate_clean_data <- function(){
   bad_data <- subset(bad_data, bad_data$hshold_lifestage_last != "NULL"
                      & bad_data$trip_seq_nb != "NULL"
                      & bad_data$bkng_dt != "NULL"
-                     & bad_data$income_1_avg == "0")
-                     #& bad_data$income_2_avg != 0
-                     #& bad_data$networth_1_avg != 0
-                     #& bad_data$networth_2_avg != 0)
+                     & bad_data$income_1_avg != "0"
+                     & bad_data$income_2_avg != 0
+                     & bad_data$networth_1_avg != 0
+                     & bad_data$networth_2_avg != 0)
   
   # fix date fields
   bad_data <- mutate(bad_data, bkng_dt =
