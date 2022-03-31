@@ -1,6 +1,6 @@
 library("factoextra")
 
-kMeansElbow <- function(input, output, session, data) {
+KMeansElbow <- function(input, output, session, data) {
 
 df <- subset(data,
              select = c(income_1_avg, income_2_avg, networth_1_avg,
