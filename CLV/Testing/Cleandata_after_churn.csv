@@ -1,2 +1,0 @@
-"customer_id","max_arvl_dt","diff_btwn_dates_in_days","churn_probabilities","ecdf_probabilities","churn_flag"
-1,2019-08-29,0,0,1,"Not Churn"
