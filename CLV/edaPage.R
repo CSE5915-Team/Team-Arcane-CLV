@@ -11,7 +11,7 @@ eda_page <- function() {
         label = "Household Lifestage",
         choices = unique(data$hshold_lifestage_last),
         multiple = TRUE,
-        selected = data$hshold_lifestage_last[1]),
+        selected = "CORE"),
       # night count filter
       sliderInput("night_count", "Night Count", width = "100%",
                 min = min(data["nght_cnt"]),
