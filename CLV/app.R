@@ -53,6 +53,7 @@ source("kMeans_Clustering_Elbow.R")
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 source("whiskerPlot.R", local = TRUE)
+source("Cox_Regression.R", local = TRUE)
 
 
 data <- read.csv("Cleandata.csv")
@@ -65,6 +66,7 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("EDA", eda_page()),
   tabPanel("EDA After Churn", eda_after_churn_page()),
   tabPanel("Corrolation", corrolation_matrix_whisker_page()),
+  tabPanel("Cox P.H.", cox_regression()),
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
     tabPanel("PAM", pam_clustering_page()),
@@ -107,4 +109,4 @@ server <- function(input, output, session) {
 }
 
 # Run the application
-shinyApp(ui, server)
+#shinyApp(ui, server)
