@@ -13,6 +13,26 @@ The following R packages are required to be installed in order to run the Shiny 
 - [plotly](https://plotly.com/r/): used for creating interactive plots
 - [hrbrthemes](https://github.com/hrbrmstr/hrbrthemes): themes that are used for the plots made
 - [showtext](https://cran.rstudio.com/web/packages/showtext/vignettes/introduction.html): renders fonts properly
+- [tidyverse](https://tidyverse.org/): used for creating static plots
+- [lintr](https://cran.r-project.org/web/packages/lintr/readme/README.html): used to lint files
+- [cluster](https://cran.r-project.org/web/packages/cluster/cluster.pdf): used to visualize the clusters
+- [kLaR](https://cran.r-project.org/web/packages/klaR/index.html): used for making kModes clusters
+- [fpc](https://cran.r-project.org/web/packages/fpc/index.html): used for vizualizing clusters
+- [shinycssloaders](https://cran.r-project.org/web/packages/shinycssloaders/shinycssloaders.pdf): used to make loading wheels
+- [shinytest](https://rstudio.github.io/shinytest/index.html): used for UI testing
+- [factoextra](https://cran.r-project.org/web/packages/factoextra/index.html): used for cluster vizualization
+- [clustMixType](https://cran.r-project.org/web/packages/clustMixType/clustMixType.pdf): used for making kProto clusters
+
+## How to add data
+
+Add a CSV file called "Rawdata" To the CLV folder. This file must have the following attributes: 
+income_1_avg	income_2_avg	networth_1_avg	networth_2_avg	hshold_lifestage_last	newid_trips	trip_ids	trip_seq_nb	 bkng_dt 	 arvl_dt 	nght_cnt	 prev_dprt_dt 	tot_amt	gst_cnt_sum	gst_jnr	gst_chld	gst_ifnt
+
+Dates should be in excel data format (days since 1/1/1900). 
+
+hshold_lifestage_last should be a string.
+
+All other attributes have the type int or float.
 
 ## How To Run
 
@@ -26,20 +46,19 @@ OR start RStudio and click "Run App" in ./CLV/app.R
 
 ## Exploratory Data Analysis Page
 
-This page consists of graphs using data that has only been pre-processed. We have included graphs of interesting relationships among attributes. User can choose to analyze specific demographics in the text bar on the top as well as adjust the sliders on the bottom to view particular data and its affect on the corresponding relationships between attributes. 
+This page consists of graphs using data that has only been pre-processed. We have included graphs of interesting relationships among attributes. User can choose to analyze specific demographics in the text bar on the top as well as adjust the sliders on the bottom to view particular data and its effect on the corresponding relationships between attributes. 
 
 ## Exploratory Data Analysis After Churn Page
 
-This page consists of an ECDF churn plot, multiple line graphs comparing probabilities of churn against various attributes of data. The ECDF plot uses pre-processed data while the line graphs uses data that has been pre-processed and removed of its guaranteed churned customers. The user can interact with the line graphs by adjusting the sliders on the bottom to view particular data and its affect on the corresponding relationships between attributes.
+This page consists of an ECDF churn plot, multiple line graphs comparing probabilities of churn against various attributes of data. The ECDF plot uses pre-processed data while the line graphs use data that has been pre-processed and removed from its guaranteed churned customers. The user can interact with the line graphs by adjusting the sliders on the bottom to view particular data and its effect on the corresponding relationships between attributes.
 
-## Corrolation Page
+## Correlation Page
 
-This page has a static Corrolation matrix and whisker plots for churn/not churned. For the corrolation matrix the red stars represent the p value, the more stars the more signifigant the result. The R-squared values are in the box with the stars. This shows the corrolation for the measures in the x and y axis. Diagonaly there is a histogram for each measure. Below are the scatter plots that the linear regression is derived from. For the whisker plots we are mainly checking to see patterns that exist among churned and not churned customers.
+This page has a static Correlation matrix and whisker plots for churn/not churned. For the correlation matrix the red stars represent the p-value, the more stars the more significant the result. The R-squared values are in the box with the stars. This shows the correlation between the measures on the x and y-axis. Diagonally there is a histogram for each measure. Below are the scatter plots that the linear regression is derived from. For the whisker plots, we are mainly checking to see patterns that exist among churned and not churned customers.
 
 ## Data Clustering Page
 
-This page consists of an elbow plot created from the fvuz_nbclust which is used to determine how many clusters we should use. It also contains a graph of clusters which was created by using a k-means clustering function which tries to group data points that have similar attributes. 
-
+This page consists of an elbow plot the determine the optimal number of clusters to use along with a collection of clustering algorithms including: KMode, KMeans, KPrototype, Pam, and Hierarchical. Users have the option to change the number of clusters generated by these functions. Users can also download the data generated by all functions into a CSV file.
 ## Contributors
 
 - [Ben Barasch](https://github.com/orgs/CSE5915-Team/people/bbarasch)

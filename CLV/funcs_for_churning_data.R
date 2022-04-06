@@ -22,7 +22,7 @@ generate_after_churn_new_data <- function(data, churn){
 add_churn_flag <- function(data){
   ecdf_percentiles <- ecdf(data$diff_btwn_dates_in_days)
   data <- data%>%mutate(ecdf_probabilities = ecdf_percentiles(data$diff_btwn_dates_in_days))
-  data <- transform(data, churn_flag= ifelse(ecdf_probabilities>0.2, "Not Churn", "Churn"))
+  data <- transform(data, churn_flag= ifelse(ecdf_probabilities>0.2, 0, 1))
   return(data)
 }
 

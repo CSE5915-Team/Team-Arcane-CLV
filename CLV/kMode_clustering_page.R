@@ -1,9 +1,8 @@
-library("shinycssloaders")
-kMode_clustering_page <- function() {
+k_mode_clustering_page <- function() {
   fluidPage(
     titlePanel("K Mode Clustering"),
     fluidRow(
-      plotOutput("kMode_Cluster_Plot") %>% withSpinner(type = 5)
+      plotOutput("k_mode_cluster_plot") %>% withSpinner(type = 5)
     ),
     fluidRow(
       sliderInput("kMode_cluster_num",
@@ -12,6 +11,12 @@ kMode_clustering_page <- function() {
                   max = 20,
                   value = 4,
                   width = "100%")
+    ),
+    fluidRow(
+      h2("Churn ratios per cluster")
+    ),
+    fluidRow(
+      tableOutput("kmode_table_plot")
     )
   )
 }

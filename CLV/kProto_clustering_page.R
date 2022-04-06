@@ -1,11 +1,11 @@
-pam_clustering_page <- function() {
+k_proto_clustering_page <- function() {
   fluidPage(
-    titlePanel("PAM Clustering"),
+    titlePanel("K Prototype Clustering"),
     fluidRow(
-      plotOutput("pam_cluster_plot") %>% withSpinner(type = 5)
+      plotOutput("k_proto_cluster_plot") %>% withSpinner(type = 5)
     ),
     fluidRow(
-      sliderInput("pam_cluster_num",
+      sliderInput("kProto_cluster_num",
                   label = "Number of Clusters",
                   min = 1,
                   max = 20,
@@ -16,7 +16,7 @@ pam_clustering_page <- function() {
       h2("Churn ratios per cluster")
     ),
     fluidRow(
-      tableOutput("pam_table_plot")
+      tableOutput("kproto_table_plot")
     )
   )
 }
