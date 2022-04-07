@@ -62,6 +62,7 @@ source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 source("h_clustering.R", local = TRUE)
 source("downloadClusteringDataPage.R", local = TRUE)
+source("cluster_df.R", local = TRUE)
 
 
 data <- read.csv("Cleandata.csv")
@@ -104,34 +105,43 @@ server <- function(input, output, session) {
     churn_plot2_server(input, output, session, churned_data)
   output$churn_night_cnt <-
     churn_plot3_server(input, output, session, churned_data)
+  
   #Plots correlation matrix/whisker plots
   output$corrolation_matrix <- renderPlot(corrolationMatrix(churned_data))
   
+  df <- cluster_df(churned_data)
+  
+  # can play around with changing what variables are facotors or numerics
+  dfKproto <- k_proto_df(churned_data)
+  
+  set.seed(123)
+  
+  
   #plots for clustering
   output$elbow_plot <-
-    renderPlot(kMeansElbow(input, output, session, churned_data))
+    renderPlot(kMeansElbow(input, output, session))
   output$kmeans_cluster_plot <-
-    renderPlot(k_means_cluster(input, output, session, churned_data))
+    renderPlot(k_means_cluster(input, output, session, df))
   output$kmeans_table_plot <- 
     renderTable(kmeans_cluster_table(input, output, session, churned_data))
   
   output$pam_cluster_plot <-
-    renderPlot(pam_cluster(input, output, session, churned_data))
+    renderPlot(pam_cluster(input, output, session, df))
   output$pam_table_plot <- 
     renderTable(pam_cluster_table(input, output, session, churned_data))
   
   output$k_mode_cluster_plot <-
-    renderPlot(k_mode_cluster(input, output, session, churned_data))
+    renderPlot(k_mode_cluster(input, output, session, df))
   output$kmode_table_plot <- 
     renderTable(kmode_cluster_table(input, output, session, churned_data))
   
   output$k_proto_cluster_plot <-
-    renderPlot(k_proto_cluster(input, output, session, churned_data))
+    renderPlot(k_proto_cluster(input, output, session, dfKproto))
   output$kproto_table_plot <- 
     renderTable(kproto_cluster_table(input, output, session, churned_data))
   
   output$h_cluster_plot <-
-    renderPlot(h_cluster(input, output, session, churned_data))
+    renderPlot(h_cluster(input, output, session, df))
   
   # files for each cluster
   pam <- read.csv("pam.csv")
@@ -146,6 +156,7 @@ server <- function(input, output, session) {
   
   # combined into one cluster dataframe
   cluster_data <- downloadClusterData(kmeans, pam, kmode, kproto)
+  all_data <- downloadAllData(cluster_data, churned_data)
   
   #create download button
   output$downloadData <- downloadHandler(
@@ -153,7 +164,7 @@ server <- function(input, output, session) {
       paste('data-', Sys.Date(), '.csv', sep='')
     },
     content = function(file) {
-      write.csv(cluster_data, file)
+      write.csv(all_data, file)
     }
   )
   
