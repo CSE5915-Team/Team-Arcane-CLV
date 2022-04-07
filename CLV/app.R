@@ -19,12 +19,9 @@ library(fpc)
 library(shinycssloaders)
 library(shinytest)
 library(factoextra)
-<<<<<<< HEAD
 library(survival)
-=======
 library(clustMixType)
 library(lintr)
->>>>>>> main
 font_add("Arial Narrow", regular = "ARIALN.TTF")
 font_add("Arial", regular = "arial.ttf")
 showtext_auto()
@@ -37,6 +34,7 @@ source("edaPage.R", local = TRUE)
 source("aboutPage.R", local = TRUE)
 source("edaAfterChurnPage.R", local = TRUE)
 source("kmeansClusteringPage.R", local = TRUE)
+source("Cox_Regression_Page.R", local = TRUE)
 source("pamClusteringPage.R", local = TRUE)
 source("kMode_clustering_page.R", local = TRUE)
 source("kProto_clustering_page.R", local = TRUE)
@@ -78,7 +76,7 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("About", about_page()),
   tabPanel("EDA", eda_page()),
   tabPanel("EDA After Churn", eda_after_churn_page()),
-  tabPanel("Cox P.H.", cox_regression()),
+  tabPanel("Cox P.H.", coxRegressionPage()),
   tabPanel("Correlation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
@@ -114,6 +112,8 @@ server <- function(input, output, session) {
   output$corrolation_matrix <- renderPlot(corrolationMatrix(churned_data))
   output$whisker_plot <- renderPlot(whiskerPlot(churned_data))
   
+  # Cox Regression
+  output$coxreg <- renderPlot(cox_regression(churned_data))
   
   #plots for clustering
   output$elbow_plot <-
