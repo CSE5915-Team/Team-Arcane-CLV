@@ -1,6 +1,3 @@
-# Cox Regression Script
-library("survival")
-
 cox_regression <- function(input, data) {
   # Get clusters for each entry
   cluster <- read.csv("pam.csv")[-1]
