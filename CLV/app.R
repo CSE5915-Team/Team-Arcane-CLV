@@ -19,6 +19,7 @@ library(fpc)
 library(shinycssloaders)
 library(shinytest)
 library(factoextra)
+library(survival)
 library(clustMixType)
 library(lintr)
 library(ggdendro)
@@ -34,6 +35,7 @@ source("edaPage.R", local = TRUE)
 source("aboutPage.R", local = TRUE)
 source("edaAfterChurnPage.R", local = TRUE)
 source("kmeansClusteringPage.R", local = TRUE)
+source("Cox_Regression_Page.R", local = TRUE)
 source("pamClusteringPage.R", local = TRUE)
 source("kMode_clustering_page.R", local = TRUE)
 source("kProto_clustering_page.R", local = TRUE)
@@ -61,6 +63,8 @@ source("kMeans_Clustering_Elbow.R", local = TRUE)
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 source("h_clustering.R", local = TRUE)
+source("Cox_Regression.R", local = TRUE)
+
 source("downloadClusteringDataPage.R", local = TRUE)
 source("cluster_df.R", local = TRUE)
 
@@ -74,6 +78,7 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("About", about_page()),
   tabPanel("EDA", eda_page()),
   tabPanel("EDA After Churn", eda_after_churn_page()),
+  tabPanel("Cox P.H.", coxRegressionPage()),
   tabPanel("Correlation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
@@ -141,6 +146,9 @@ server <- function(input, output, session) {
   
   output$h_cluster_plot <-
     renderPlot(h_cluster(input, output, session, df))
+  
+  # Cox Regression
+  output$coxreg <- renderPlot(cox_regression(input, churned_data))
   
   # files for each cluster
   pam <- read.csv("pam.csv")
