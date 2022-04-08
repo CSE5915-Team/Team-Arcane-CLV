@@ -62,7 +62,6 @@ source("kMeans_Clustering_Elbow.R", local = TRUE)
 source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 source("h_clustering.R", local = TRUE)
-source("whiskerPlot.R", local = TRUE)
 source("Cox_Regression.R", local = TRUE)
 source("downloadClusteringDataPage.R", local = TRUE)
 
