@@ -112,8 +112,6 @@ server <- function(input, output, session) {
   output$corrolation_matrix <- renderPlot(corrolationMatrix(churned_data))
   output$whisker_plot <- renderPlot(whiskerPlot(churned_data))
   
-  # Cox Regression
-  output$coxreg <- renderPlot(cox_regression(churned_data))
   
   #plots for clustering
   output$elbow_plot <-
@@ -140,6 +138,9 @@ server <- function(input, output, session) {
   
   output$h_cluster_plot <-
     renderPlot(h_cluster(input, output, session, churned_data))
+  
+  # Cox Regression
+  output$coxreg <- renderPlot(cox_regression(input, churned_data))
   
   # files for each cluster
   pam <- read.csv("pam.csv")
