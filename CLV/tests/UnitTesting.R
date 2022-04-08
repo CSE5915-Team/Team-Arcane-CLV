@@ -35,7 +35,7 @@ test_that("add churn flag 1", {
 
   diff_btwn_dates_in_days <- c(7083, 4953, 0)
   ecdf_probabilities <- c(1.00000000, 0.66666667, 0.33333333)
-  churn_flag <- c("Not Churn", "Not Churn", "Not Churn")
+  churn_flag <- c(0, 0, 0)
   df = data.frame(diff_btwn_dates_in_days)
   expect_equal(add_churn_flag(df)$churn_flag, churn_flag)
   expect_equal(add_churn_flag(df)$ecdf_probabilities, ecdf_probabilities)
@@ -46,7 +46,7 @@ test_that("add churn flag 2", {
 
   diff_btwn_dates_in_days <- c(10000, 7083, 8829, 4953, 0, 234, 20, 10232)
   ecdf_probabilities <- c(0.875, 0.625, 0.750, 0.500, 0.125, 0.375, 0.250, 1.000)
-  churn_flag <- c("Not Churn", "Not Churn", "Not Churn", "Not Churn", "Churn", "Not Churn", "Not Churn", "Not Churn")
+  churn_flag <- c(0, 0, 0, 0, 1, 0, 0, 0)
   df = data.frame(diff_btwn_dates_in_days)
   expect_equal(add_churn_flag(df)$churn_flag, churn_flag)
   expect_equal(add_churn_flag(df)$ecdf_probabilities, ecdf_probabilities)
@@ -62,7 +62,7 @@ test_that("generate churn data 1", {
   diff_btwn_dates_in_days <- c(7083, 4953, 0)
   churn_probabilities <- c((1-1.00000000), (1-0.66666667), (1-0.33333333))
   ecdf_probabilities <- c(1.00000000, 0.66666667, 0.33333333)
-  churn_flag <- c("Not Churn", "Not Churn", "Not Churn")
+  churn_flag <- c(0, 0, 0)
   df = data.frame(customer_id, max_arvl_dt)
   modified_df = data.frame(customer_id, max_arvl_dt, diff_btwn_dates_in_days, churn_probabilities,
                            ecdf_probabilities, churn_flag)
@@ -77,7 +77,7 @@ test_that("generate churn data 2", {
   diff_btwn_dates_in_days <- c(0)
   churn_probabilities <- c(0)
   ecdf_probabilities <- c(1.00000000)
-  churn_flag <- c("Not Churn")
+  churn_flag <- c(0)
   df = data.frame(customer_id, max_arvl_dt)
   modified_df = data.frame(customer_id, max_arvl_dt, diff_btwn_dates_in_days, churn_probabilities,
                            ecdf_probabilities, churn_flag)
