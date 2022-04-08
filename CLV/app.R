@@ -22,6 +22,7 @@ library(factoextra)
 library(survival)
 library(clustMixType)
 library(lintr)
+library(ggdendro)
 font_add("Arial Narrow", regular = "ARIALN.TTF")
 font_add("Arial", regular = "arial.ttf")
 showtext_auto()
@@ -38,7 +39,7 @@ source("Cox_Regression_Page.R", local = TRUE)
 source("pamClusteringPage.R", local = TRUE)
 source("kMode_clustering_page.R", local = TRUE)
 source("kProto_clustering_page.R", local = TRUE)
-source("corrolationMatrixWhiskerPage.R", local = TRUE)
+source("correlationMatrixWhiskerPage.R", local = TRUE)
 source("hClusteringPage.R", local = TRUE)
 
 source("eda_plot1_func.R", local = TRUE)
@@ -49,7 +50,7 @@ source("funcs_for_churning_data.R", local = TRUE)
 source("churn_eda_plot1_func.R", local = TRUE)
 source("churn_eda_plot2_func.R", local = TRUE)
 source("churn_eda_plot3_func.R", local = TRUE)
-source("corrolationMatrix.R", local = TRUE)
+source("correlationMatrix.R", local = TRUE)
 source("kMeans_Clustering.R", local = TRUE)
 source("kmeans_Cluster_analysis.R", local = TRUE)
 source("kProto_Clustering.R", local = TRUE)
@@ -63,7 +64,9 @@ source("churn_vs_not_churn_plot_render.R", local = TRUE)
 source("ecdf_plot_func.R", local = TRUE)
 source("h_clustering.R", local = TRUE)
 source("Cox_Regression.R", local = TRUE)
+
 source("downloadClusteringDataPage.R", local = TRUE)
+source("cluster_df.R", local = TRUE)
 
 
 data <- read.csv("Cleandata.csv")
@@ -107,36 +110,42 @@ server <- function(input, output, session) {
     churn_plot2_server(input, output, session, churned_data)
   output$churn_night_cnt <-
     churn_plot3_server(input, output, session, churned_data)
+  
   #Plots correlation matrix/whisker plots
   output$corrolation_matrix <- renderPlot(corrolationMatrix(churned_data))
-  output$whisker_plot <- renderPlot(whiskerPlot(churned_data))
+  
+  # Generated the necessary dataframes for the cluster algorithms
+  df <- cluster_df(churned_data)
+  dfKproto <- k_proto_df(churned_data)
+  
+  set.seed(123)
   
   
   #plots for clustering
   output$elbow_plot <-
-    renderPlot(kMeansElbow(input, output, session, churned_data))
+    renderPlot(kMeansElbow(input, output, session))
   output$kmeans_cluster_plot <-
-    renderPlot(k_means_cluster(input, output, session, churned_data))
+    renderPlot(k_means_cluster(input, output, session, df))
   output$kmeans_table_plot <- 
     renderTable(kmeans_cluster_table(input, output, session, churned_data))
   
   output$pam_cluster_plot <-
-    renderPlot(pam_cluster(input, output, session, churned_data))
+    renderPlot(pam_cluster(input, output, session, df))
   output$pam_table_plot <- 
     renderTable(pam_cluster_table(input, output, session, churned_data))
   
   output$k_mode_cluster_plot <-
-    renderPlot(k_mode_cluster(input, output, session, churned_data))
+    renderPlot(k_mode_cluster(input, output, session, df))
   output$kmode_table_plot <- 
     renderTable(kmode_cluster_table(input, output, session, churned_data))
   
   output$k_proto_cluster_plot <-
-    renderPlot(k_proto_cluster(input, output, session, churned_data))
+    renderPlot(k_proto_cluster(input, output, session, dfKproto))
   output$kproto_table_plot <- 
     renderTable(kproto_cluster_table(input, output, session, churned_data))
   
   output$h_cluster_plot <-
-    renderPlot(h_cluster(input, output, session, churned_data))
+    renderPlot(h_cluster(input, output, session, df))
   
   # Cox Regression
   output$coxreg <- renderPlot(cox_regression(input, churned_data))
@@ -154,6 +163,7 @@ server <- function(input, output, session) {
   
   # combined into one cluster dataframe
   cluster_data <- downloadClusterData(kmeans, pam, kmode, kproto)
+  all_data <- downloadAllData(cluster_data, churned_data)
   
   #create download button
   output$downloadData <- downloadHandler(
@@ -161,7 +171,7 @@ server <- function(input, output, session) {
       paste('data-', Sys.Date(), '.csv', sep='')
     },
     content = function(file) {
-      write.csv(cluster_data, file)
+      write.csv(all_data, file)
     }
   )
   
