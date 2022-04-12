@@ -2,7 +2,12 @@ k_mode_clustering_page <- function() {
   fluidPage(
     titlePanel("K Mode Clustering"),
     fluidRow(
-      plotOutput("k_mode_cluster_plot") %>% withSpinner(type = 5)
+      column(6,
+             plotOutput("k_mode_cluster_plot") %>% withSpinner(type = 5)
+      ),
+      column(6,
+             plotOutput("coxregkmode") %>% withSpinner(type = 5)
+      )
     ),
     fluidRow(
       sliderInput("kMode_cluster_num",

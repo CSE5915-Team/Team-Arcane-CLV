@@ -2,7 +2,12 @@ k_proto_clustering_page <- function() {
   fluidPage(
     titlePanel("K Prototype Clustering"),
     fluidRow(
-      plotOutput("k_proto_cluster_plot") %>% withSpinner(type = 5)
+      column(6,
+             plotOutput("k_proto_cluster_plot") %>% withSpinner(type = 5)
+      ),
+      column(6,
+             plotOutput("coxregkproto") %>% withSpinner(type = 5)
+      )
     ),
     fluidRow(
       sliderInput("kProto_cluster_num",
