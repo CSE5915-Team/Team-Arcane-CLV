@@ -125,7 +125,7 @@ server <- function(input, output, session) {
   
   #plots for clustering
   output$elbow_plot <-
-    renderPlot(kMeansElbow(input, output, session))
+    renderPlot(KMeansElbow(input, output, session, df))
   output$kmeans_cluster_plot <-
     renderPlot(k_means_cluster(input, output, session, df))
   output$kmeans_table_plot <- 

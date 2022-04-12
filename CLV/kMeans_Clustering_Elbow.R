@@ -1,4 +1,4 @@
-KMeansElbow <- function(input, output, session) {
+KMeansElbow <- function(input, output, session, df) {
   
   # first, we want to calculate the optimal number of clusters  
   elbowPlot <- fviz_nbclust(df, kmeans, method = "wss") +
