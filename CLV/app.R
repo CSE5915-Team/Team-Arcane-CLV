@@ -37,7 +37,6 @@ source("edaPage.R", local = TRUE)
 source("aboutPage.R", local = TRUE)
 source("edaAfterChurnPage.R", local = TRUE)
 source("kmeansClusteringPage.R", local = TRUE)
-source("Cox_Regression_Page.R", local = TRUE)
 source("pamClusteringPage.R", local = TRUE)
 source("kMode_clustering_page.R", local = TRUE)
 source("kProto_clustering_page.R", local = TRUE)
@@ -80,7 +79,6 @@ ui <- navbarPage("Customer Lifetime Value",
   tabPanel("About", about_page()),
   tabPanel("EDA", eda_page()),
   tabPanel("EDA After Churn", eda_after_churn_page()),
-  tabPanel("Cox P.H.", coxRegressionPage()),
   tabPanel("Correlation", corrolation_matrix_whisker_page()),
   navbarMenu("Clustering",
     tabPanel("K Means", kmeansClusteringPage()),
@@ -149,8 +147,6 @@ server <- function(input, output, session) {
   output$h_cluster_plot <-
     renderPlot(h_cluster(input, output, session, df))
   
-  # Cox Regression
-  output$coxreg <- renderPlot(cox_regression(input, churned_data))
   
   # files for each cluster
   pam <- read.csv("pam.csv")
@@ -161,6 +157,12 @@ server <- function(input, output, session) {
   colnames(kmode) <- c('ID','K Modes')
   kproto <- read.csv("kproto.csv")
   colnames(kproto) <- c('ID','K Prototype')
+  
+  # Cox Regression
+  output$coxregkmeans <- renderPlot(cox_regression(input, churned_data, "kmeans.csv", input$kmeans_cluster_num))
+  output$coxregkmode <- renderPlot(cox_regression(input, churned_data, "kmode.csv", input$kMode_cluster_num))
+  output$coxregkproto <- renderPlot(cox_regression(input, churned_data, "kproto.csv", input$kProto_cluster_num))
+  output$coxregpam <- renderPlot(cox_regression(input, churned_data, "pam.csv", input$pam_cluster_num))
   
   
   # combined into one cluster dataframe

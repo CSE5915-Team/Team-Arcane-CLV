@@ -24,6 +24,12 @@ kmeansClusteringPage <- function() {
     ),
     fluidRow(
       tableOutput("kmeans_table_plot")
+    ),
+    fluidRow(
+      h2("Cox Proportional Hazards") 
+    ),
+    fluidRow(
+             plotOutput("coxregkmeans") %>% withSpinner(type = 5)
     )
   )
 }
