@@ -3,3 +3,4 @@ library("shinytest")
 
 # to test, call recordTest() with path to the app
 recordTest("edaPage")
+

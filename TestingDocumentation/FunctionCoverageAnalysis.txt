@@ -1,4 +1,0 @@
-
-Copy the following link into a web browser to see the code coverage results:
-
-file:///C:/Users/Supreeth%20Voona/AppData/Local/Temp/Rtmpk1JMl6/coverage-report.html#
