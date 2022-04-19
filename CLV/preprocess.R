@@ -12,6 +12,7 @@ generate_clean_data <- function(){
   clean_data_file <- "Cleandata.csv"
   
   # Preprocess data
+  print('Reading from CLV/Rawdata.csv')
   bad_data <- read.csv(bad_data_file, stringsAsFactors = FALSE) # Bad data
   
   # remove unused columns
